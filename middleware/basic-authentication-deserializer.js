@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const User = require('./../models/user');
+const User = require("./../models/user");
 
 module.exports = (req, res, next) => {
   const userId = req.session.user;
   if (userId) {
     User.findById(userId)
-      .then(user => {
+      .then((user) => {
         req.user = user;
         next();
       })
-      .catch(error => {
+      .catch((error) => {
         next(error);
       });
   } else {
