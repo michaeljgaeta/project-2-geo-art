@@ -8,15 +8,18 @@ const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+
 const sassMiddleware = require("node-sass-middleware");
 const serveFavicon = require("serve-favicon");
+
 const basicAuthenticationDeserializer = require("./middleware/basic-authentication-deserializer.js");
 const routeGuard = require("./middleware/route-guard");
 const bindUserToViewLocals = require("./middleware/bind-user-to-view-locals.js");
+
 const indexRouter = require("./routes/index");
 const authenticationRouter = require("./routes/authentication");
 const profileRouter = require("./routes/profile");
-const placeRouter = require("./routes/my-places");
+const placeRouter = require("./routes/post");
 
 const app = express();
 
@@ -60,7 +63,7 @@ app.use(bindUserToViewLocals);
 app.use("/", indexRouter);
 app.use("/authentication", authenticationRouter);
 app.use("/profile", profileRouter);
-app.use("/my-places", placeRouter);
+app.use("/post", placeRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {

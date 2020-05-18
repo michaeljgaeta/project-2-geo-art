@@ -7,8 +7,10 @@ module.exports = (req, res, next) => {
   if (req.user) {
     next();
   } else {
-    const error = new Error("AUTHENTICATION_REQUIRED");
+    //res.alert("Need account");
+    res.redirect("/authentication/sign-in");
+    /*const error = new Error("Error - You need to login or create an account to view this page.");
     error.status = 401;
-    next(error);
+    next(error);*/
   }
 };
