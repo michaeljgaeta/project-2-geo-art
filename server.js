@@ -5,7 +5,7 @@ require("dotenv").config();
 const debug = require("debug")("geo-art:server");
 const app = require("./app");
 const mongoose = require("mongoose");
-
+const routeGuard = require("./middleware/route-guard");
 const PORT = parseInt(process.env.PORT, 10);
 const URI = process.env.MONGODB_URI;
 
