@@ -1,0 +1,10 @@
+<h1>My Places List</h1>
+
+{{#each places}}
+<li>
+<img src="#" width="100">
+<a href="/places/{{_id}}">{{name}}</a>
+<small>Created at: {{createdDate}}</small></li>
+{{/each}}
+<br>
+<a href="/places/create">Create art place</a>

@@ -2,45 +2,49 @@
 
 const mongoose = require("mongoose");
 
-const placeSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    minlength: 1,
-    maxlength: 20,
-    required: true
-  },
-  message: {
-    type: String,
-    minlength: 1,
-    maxlength: 200,
-    required: true
-  },
-  location: {
-    type: {
+const placeSchema = new mongoose.Schema(
+  {
+    name: {
       type: String,
-      default: "Point",
+      minlength: 1,
+      maxlength: 20,
       required: true
     },
-    coordinates: [
-      {
-        type: mongoose.Schema.Types.Decimal128,
-        min: -180,
-        max: 180
-      }
-    ]
+    description: {
+      type: String,
+      minlength: 1,
+      maxlength: 200,
+      required: true
+    },
+    location: {
+      type: {
+        type: String,
+        default: "Point",
+        required: true
+      },
+      coordinates: [
+        {
+          type: mongoose.Schema.Types.Decimal128,
+          min: -180,
+          max: 180
+        }
+      ]
+    },
+    pictureUrl: {
+      type: String
+    },
+    creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User"
+    }
   },
-  pictureUrl: {
-    type: String
-  },
-  creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "User"
-  },
-  timestamps: {
-    createdAt: "createdDate",
-    updatedAt: "updatedDate"
+  {
+    timestamps: {
+      createdAt: "createdDate",
+      updatedAt: "updatedDate"
+    }
   }
-});
+);
 
 module.exports = mongoose.model("Place", placeSchema);
