@@ -1,2 +1,14 @@
 <h1>User Profile</h1>
-<p>{{name}}</p>
+<p>{{title}}</p>
+
+<form method="GET">
+  <label for="input-name">Username</label>
+  <input required value="{{user.name}}" type="text" id="input-name" name="name" readonly/>
+
+  <label for="input-email">Email</label>
+  <input required value="{{user.email}}" type="email" id="input-email" name="email" readonly/>
+
+  <label for="input-location">Location</label>
+  <input required value="{{user.location}}" required type="text" name="location" id="input-location" readonly/></form>
+
+<a href="/profile/{{user._id}}/edit">Update Profile</a>

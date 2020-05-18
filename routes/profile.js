@@ -2,17 +2,22 @@
 const { Router } = require("express");
 const profileRouter = new Router();
 const routeGuard = require("./../middleware/route-guard");
+
 const User = require("./../models/user");
+
 profileRouter.get("/:userId", routeGuard, (req, res, next) => {
   const userId = req.params.userId;
   console.log(userId);
   res.render("profile/profile");
 });
+
 profileRouter.get("/my-places", routeGuard, (req, res, next) => {
   res.render("profile/my-places");
 });
+
 profileRouter.get("/:userId/edit", routeGuard, (req, res, next) => {
   const userId = req.params.userId;
+
   User.findById(userId)
     .then((user) => {
       res.render("profile/edit", { user });

@@ -1,0 +1,16 @@
+<h1>Update Profile</h1>
+<form method="POST">
+  <label for="input-name">Username</label>
+  <input required value="{{user.name}}" type="text" id="input-name" name="name" placeholder="input your updated username" />
+
+  <label for="input-email">Email</label>
+  <input required value="{{user.email}}" type="email" id="input-email" name="email" placeholder="input your updated email" />
+
+  <label for="input-password">Password</label>
+  <input required type="password" name="password" id="input-password" placeholder="input your updated password" />
+
+  <label for="input-location">Location</label>
+  <input required value="{{user.location}}" required type="text" name="location" id="input-location" placeholder="input your updated location" />
+
+  <button>Update</button>
+</form>
