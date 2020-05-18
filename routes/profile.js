@@ -4,7 +4,9 @@ const { Router } = require("express");
 const profileRouter = new Router();
 const routeGuard = require("./../middleware/route-guard");
 
-profileRouter.get("/profile", (req, res, next) => {
+profileRouter.get("/profile/:userId", (req, res, next) => {
+  const userId = req.body.userId
+  console.log(userId);
   res.render("profile", { title: "Geo Art" });
 });
 
