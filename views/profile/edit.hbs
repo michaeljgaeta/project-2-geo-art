@@ -1,5 +1,5 @@
 <h1>Update Profile</h1>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
   <label for="input-name">Username</label>
   <input required value="{{user.name}}" type="text" id="input-name" name="name" placeholder="input your updated username" />
 
@@ -11,6 +11,9 @@
 
   <label for="input-location">Location</label>
   <input required value="{{user.location}}" required type="text" name="location" id="input-location" placeholder="input your updated location" />
+
+  <label for="picture-input">Profile Picture</label>
+  <input id="picture-input" name="picture" type="file" />
 
   <button>Update</button>
 </form>
