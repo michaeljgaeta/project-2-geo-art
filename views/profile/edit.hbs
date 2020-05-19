@@ -1,19 +1,15 @@
-<h1>Update Profile</h1>
 <form method="POST" enctype="multipart/form-data">
   <label for="input-name">Username</label>
-  <input required value="{{user.name}}" type="text" id="input-name" name="name" placeholder="input your updated username" />
+  <input required value="{{user.name}}" type="text" id="input-name" name="name" placeholder="Updated Username" />
 
   <label for="input-email">Email</label>
-  <input required value="{{user.email}}" type="email" id="input-email" name="email" placeholder="input your updated email" />
-
-  <label for="input-password">Password</label>
-  <input required type="password" name="password" id="input-password" placeholder="input your updated password" />
-
-  <label for="input-location">Location</label>
-  <input required value="{{user.location}}" required type="text" name="location" id="input-location" placeholder="input your updated location" />
+  <input required value="{{user.email}}" type="email" id="input-email" name="email" placeholder="Updated Email" />
 
   <label for="picture-input">Profile Picture</label>
   <input id="picture-input" name="picture" type="file" />
 
-  <button>Update</button>
+  <label for="input-password">Password</label>
+  <input required type="password" name="password" id="input-password" placeholder="Verify Details With Password" />
+
+  <button>Update Profile</button>
 </form>

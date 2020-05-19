@@ -1,14 +1,4 @@
-<h1>User Profile</h1>
-<p>{{title}}</p>
-
-<form method="GET">
-  <label for="input-name">Username</label>
-  <input required value="{{user.name}}" type="text" id="input-name" name="name" readonly/>
-  <p>Email: {{user.email}}</p>
-  <label for="input-email">Email</label>
-  <input required value="{{user.email}}" type="email" id="input-email" name="email" readonly/>
-  <p>Location: {{user.location}}</p>
-  <label for="input-location">Location</label>
-  <input required value="{{user.location}}" required type="text" name="location" id="input-location" readonly/></form>
-
-<a href="/profile/{{user._id}}/edit">Update Profile</a>
+<h2>{{user.name}}'s Profile</h2>
+<img class="img-profile" src='#' alt='user profile image' />
+<br>
+<a href="/profile/{{user._id}}/edit">Update Details</a>

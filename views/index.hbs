@@ -1,2 +1,11 @@
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+
+{{#each places}}
+  <article>
+    <h4>{{ name }}</h4>
+    <img class="img-feed" src="#" />
+    <p><strong>{{ creator.name }}</strong> - {{ description }}</p>
+    <small>{{createdDate}}</small><br>
+  </article>
+  <hr>
+{{/each}}
