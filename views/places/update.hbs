@@ -1,0 +1,27 @@
+{{#with place}}
+<h1>You are updating {{name}} place</h1>
+<form method="POST">
+
+<div>
+<img src="#" width="400"/>
+
+  <label for="picture-input">Update Picture</label><br>
+  <input id="picture-input" name="pictureUrl" type="file" />
+
+</div>
+
+<label for="name">Name:</label>
+<input type="text" name="name" id="name" value="{{name}}" required>
+
+<label for="description-input">Description:</label>
+<textarea required id="description-input" name="description">{{ description }}></textarea>
+
+<label for="latitude-input">Latitude</label>
+<input required id="latitude-input" type="text" name="latitude" value="{{location.coordinates.[0]}}">
+
+<label for="longitude-input">Longitude</label>
+<input required id="longitude-input" type="text" name="longitude" value="{{location.coordinates.[1]}}">
+
+<button>Update art place</button>
+</form>
+{{/with}}

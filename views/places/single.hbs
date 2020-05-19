@@ -1,0 +1,15 @@
+{{#with place}}
+<div>
+<img src="#"/>
+<div>
+<h2>Name: {{ name }}</h2>
+<p>Description: {{ description }}</p>
+</div>
+</div>
+<small><strong>Created at:</strong> {{createdDate}}</small><br>
+
+<a href="/places/update/{{ _id }}">Update Place</a>
+
+<a href="/places/delete/{{ _id }}">Delete Place</a>
+
+{{/with}}

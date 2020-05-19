@@ -43,4 +43,51 @@ placesRouter.post("/create", routeGuard, (req, res, next) => {
     });
 });
 
+placesRouter.get("/:id", (req, res, next) => {
+  const id = req.params.id;
+  Place.findById(id)
+    .then((place) => {
+      res.render("places/single", { place });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+placesRouter.get("/update/:id", (req, res, next) => {
+  const id = req.params.id;
+
+  Place.findById(id)
+    .then((place) => {
+      res.render("places/update", { place });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+placesRouter.post("/update/:id", (req, res, next) => {
+  const id = req.params.id;
+  const name = req.body.name;
+  const description = req.body.description;
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+
+  const query = {
+    name,
+    description,
+    location: {
+      coordinates: [longitude, latitude]
+    }
+  };
+
+  Place.findOneAndUpdate({ _id: id }, query)
+    .then((place) => {
+      res.redirect("/places/my-list");
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 module.exports = placesRouter;
