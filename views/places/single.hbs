@@ -10,6 +10,8 @@
 
 <a href="/places/update/{{ _id }}">Update Place</a>
 
-<a href="/places/delete/{{ _id }}">Delete Place</a>
+<form action="/places/delete/{{_id }}" method="POST">
+<button>Delete Post</button>
+</form>
 
 {{/with}}

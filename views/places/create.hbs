@@ -1,9 +1,14 @@
 <h1>Create Place</h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 
 <label for="name">Name:</label>
 <input type="text" name="name" id="name" placeholder="Write name" required>
+
+<div>
+  <label for="picture-input">Picture:</label><br>
+  <input id="picture-input" name="picture" type="file" required/>
+</div>
 
 <label for="description-input">Description:</label>
 <textarea required id="description-input" name="description" placeholder="Write a description here"></textarea>
