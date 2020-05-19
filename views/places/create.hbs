@@ -19,5 +19,42 @@
 <label for="longitude-input">Longitude</label>
 <input required id="longitude-input" type="text" name="longitude" placeholder="Place Longitude">
 
+<div id="map-container"></div>
+
 <button>Submit art place</button>
+
+
 </form>
+<script>
+
+ const $inputLatitude = document.getElementById('latitude-input');
+ const $inputLongitude = document.getElementById('longitude-input');
+
+function initMap() {
+  const mapcoord = {lat: 38.5, lng: -9};
+  
+  const map = new window.google.maps.Map(document.getElementById('map-container'), {zoom: 10, center: mapcoord});
+  let marker;
+
+map.addListener('click', event => {
+      const latitude = event.latLng.lat();
+      const longitude = event.latLng.lng();
+      $inputLatitude.value = Number(latitude);
+      $inputLongitude.value = Number(longitude);
+      
+      if (marker) {
+        marker.setMap(null);
+      }
+      marker = new window.google.maps.Marker({
+        map,
+        position: {
+          lat: latitude,
+          lng: longitude
+        }
+      });
+      
+    })
+}
+</script>
+
+{{>mapscript}}
