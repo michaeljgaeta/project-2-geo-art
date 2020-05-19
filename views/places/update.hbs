@@ -1,12 +1,15 @@
 {{#with place}}
 <h1>You are updating {{name}} place</h1>
-<form method="POST">
+
+  <form method="POST" enctype="multipart/form-data">
 
 <div>
-<img src="{{pictureUrl}}" width="400"/>
+<img class="img-list" src="{{pictureUrl}}">
 
-  <label for="picture-input">Update Picture</label><br>
-  <input id="picture-input" name="pictureUrl" type="file" />
+  <div>
+  <label for="picture-input">Update Picture:</label><br>
+  <input id="picture-input" name="picture" type="file" required/>
+</div>
 
 </div>
 
@@ -22,6 +25,46 @@
 <label for="longitude-input">Longitude</label>
 <input required id="longitude-input" type="text" name="longitude" value="{{location.coordinates.[1]}}">
 
+<div id="map-container"></div>
+
+
 <button>Update art place</button>
 </form>
+
+<script>
+
+ const $inputLatitude = document.getElementById('latitude-input');
+ const $inputLongitude = document.getElementById('longitude-input');
+
+const longitude = {{location.coordinates.[0]}};
+const latitude = {{location.coordinates.[1]}};
+
+function initMap() {
+  const mapcoord = {lat: latitude, lng: longitude};
+  
+  const map = new window.google.maps.Map(document.getElementById('map-container'), {zoom: 10, center: mapcoord});
+  let marker = new google.maps.Marker({position: mapcoord, map: map});
+
+map.addListener('click', event => {
+      const latitude = event.latLng.lat();
+      const longitude = event.latLng.lng();
+      $inputLatitude.value = Number(latitude);
+      $inputLongitude.value = Number(longitude);
+      
+      if (marker) {
+        marker.setMap(null);
+      }
+      marker = new window.google.maps.Marker({
+        map,
+        position: {
+          lat: latitude,
+          lng: longitude
+        }
+      });
+      
+    })
+}
+</script>
+
+{{>mapscript}}
 {{/with}}

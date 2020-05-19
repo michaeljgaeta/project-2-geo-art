@@ -69,7 +69,7 @@ placesRouter.post("/create", routeGuard, uploader.single("picture"), (req, res, 
 });
 
 //SINGLE PLACE VIEW
-placesRouter.get("/:id", (req, res, next) => {
+placesRouter.get("/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
   Place.findById(id)
     .then((place) => {
@@ -81,7 +81,7 @@ placesRouter.get("/:id", (req, res, next) => {
 });
 
 //UPDATE PLACE
-placesRouter.get("/update/:id", (req, res, next) => {
+placesRouter.get("/update/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
 
   Place.findById(id)
@@ -93,19 +93,21 @@ placesRouter.get("/update/:id", (req, res, next) => {
     });
 });
 
-placesRouter.post("/update/:id", (req, res, next) => {
+placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, res, next) => {
   const id = req.params.id;
   const name = req.body.name;
   const description = req.body.description;
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
+  const pictureUrl = req.file.url;
 
   const query = {
     name,
     description,
     location: {
       coordinates: [longitude, latitude]
-    }
+    },
+    pictureUrl
   };
 
   Place.findOneAndUpdate({ _id: id }, query)
@@ -118,7 +120,7 @@ placesRouter.post("/update/:id", (req, res, next) => {
 });
 
 //DELETE PLACE
-placesRouter.post("/delete/:id", (req, res, next) => {
+placesRouter.post("/delete/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
 
   Place.findByIdAndDelete(id)

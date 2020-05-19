@@ -15,11 +15,21 @@ const serveFavicon = require("serve-favicon");
 const basicAuthenticationDeserializer = require("./middleware/basic-authentication-deserializer.js");
 const routeGuard = require("./middleware/route-guard");
 const bindUserToViewLocals = require("./middleware/bind-user-to-view-locals.js");
-
+//ROUTERS----------------------------------------------------
 const indexRouter = require("./routes/index");
 const authenticationRouter = require("./routes/authentication");
 const profileRouter = require("./routes/profile");
 const placesRouter = require("./routes/places");
+//--------------------------------------------------------
+
+//PARTIAL -------------------------------
+const hbs = require("hbs");
+const json = require("hbs-json");
+
+hbs.registerHelper("json", json);
+
+hbs.registerPartials(__dirname + "/views/partial");
+//----------------------------------------
 
 const app = express();
 

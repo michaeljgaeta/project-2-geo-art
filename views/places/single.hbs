@@ -1,11 +1,13 @@
 {{#with place}}
-<div>
-<img src="{{pictureUrl}}"/>
-<div>
+
 <h2>Name: {{ name }}</h2>
+<img class="img-list" src="{{pictureUrl}}"/>
+
 <p>Description: {{ description }}</p>
-</div>
-</div>
+<p><strong>Where You can find me:</strong></p>
+<p>Latitude: {{location.coordinates.[1]}} | Longitude: {{location.coordinates.[0]}}</p>
+<div id="map-container"></div>
+
 <small><strong>Created at:</strong> {{createdDate}}</small><br>
 
 <a href="/places/update/{{ _id }}">Update Place</a>
@@ -13,5 +15,21 @@
 <form action="/places/delete/{{_id }}" method="POST">
 <button>Delete Post</button>
 </form>
+
+<script>
+  //console.log({{location.coordinates.[0]}})
+
+const longitude = {{location.coordinates.[0]}};
+const latitude = {{location.coordinates.[1]}};
+
+function initMap() {
+  const mapcoord = {lat: latitude, lng: longitude};
+  
+  const map = new window.google.maps.Map(document.getElementById('map-container'), {zoom: 10, center: mapcoord});
+  const marker = new google.maps.Marker({position: mapcoord, map: map});
+}
+</script>
+
+{{>mapscript}}
 
 {{/with}}
