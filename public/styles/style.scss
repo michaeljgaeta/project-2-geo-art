@@ -1,5 +1,10 @@
-$font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-sans: "Roboto", Helvetica, Arial, sans-serif;
 $grey: hsla(0, 0, 75%, 0.5);
+
+/*
+Old Font Family:
+Helvetica Neue
+*/
 
 * {
   &,
@@ -55,8 +60,8 @@ p {
 }
 
 .img-profile {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
 }
 
 .img-list {
@@ -64,12 +69,16 @@ p {
   height: 40%;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+.img-logo {
+  height: 40px;
 }
 
-input,
+/*form {
+  display: flex;
+  flex-direction: column;
+}*/
+
+/*input,
 textarea,
 button,
 .btn {
@@ -80,9 +89,9 @@ button,
   font: inherit;
   color: inherit;
   background-color: transparent;
-}
+}*/
 
-textarea {
+/*textarea {
   min-height: 6em;
   resize: vertical;
-}
+}*/
