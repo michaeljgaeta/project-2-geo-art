@@ -7,7 +7,7 @@ const User = require("./../models/user");
 
 profileRouter.get("/:userId", routeGuard, (req, res, next) => {
   const userId = req.params.userId;
-  console.log(userId);
+  //console.log(userId);
   res.render("profile/profile");
 });
 
@@ -52,11 +52,11 @@ profileRouter.post("/:userId/edit", routeGuard, (req, res, next) => {
 });
 
 //DELETE Profile
-profileRouter.post("/profile/:id", (req, res, next) => {
-  const id = req.params.id;
-
-  Place.findByIdAndDelete(id)
-    .then((place) => {
+profileRouter.post("/delete", (req, res, next) => {
+  const id = req.user._id;
+  //console.log("User to be deleted", id);
+  User.findByIdAndDelete(id)
+    .then((user) => {
       res.redirect("/");
     })
     .catch((error) => {

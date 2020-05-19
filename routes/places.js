@@ -30,7 +30,7 @@ placesRouter.get("/my-list", routeGuard, (req, res, next) => {
   const creator = req.user.id;
   Place.find({ creator })
     .then((places) => {
-      console.log(places);
+      //console.log(places);
       res.render("places/my-list", { places });
     })
     .catch((error) => {
@@ -100,7 +100,7 @@ placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, r
   const longitude = req.body.longitude;
   const pictureUrl = req.file.url;
 
-  console.log(pictureUrl);
+  //console.log(pictureUrl);
 
   const query = {
     name,

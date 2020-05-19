@@ -14,10 +14,22 @@ Helvetica Neue
   }
 }
 
+body {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.collapse-content .fa.fa-heart:hover {
+  color: #f44336 !important;
+}
+.collapse-content .fa.fa-share-alt:hover {
+  color: #0d47a1 !important;
+}
+
 /*body {
   max-width: 52em;
   padding: 0 1em;
-  margin: 0 auto;
+  
   font-family: sans-serif;
   font-family: $font-sans;
   line-height: 2;

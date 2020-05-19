@@ -1,14 +1,12 @@
 <h1>My Places List</h1>
 <a href="/places/create">Create art place</a>
 
-<ul>
 {{#each places}}
-<li>
-<img class="img-list" src="{{pictureUrl}}" />
-<a href="/places/{{_id}}">{{name}}</a><br>
-<small>Created at: {{createdDate}}</small>
-<hr>
-</li>
+  <div class="extended-link" href="#">
+    <a href="/places/{{_id}}">{{name}}</a><br>
+    <img class="img-list" src="{{pictureUrl}}" />
+    <small>Created at: {{createdDate}}</small>
+    <hr>
+  </div>
 {{/each}}
-</ul>
 

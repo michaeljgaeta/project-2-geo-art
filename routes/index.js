@@ -35,7 +35,7 @@ router.get("/", (req, res, next) => {
     // .skip(1)
     .populate("creator")
     .then((places) => {
-      console.log(places);
+      //console.log(places);
       res.render("index", { places });
     })
     .catch((error) => {
