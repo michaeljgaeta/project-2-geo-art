@@ -12,18 +12,29 @@
         lat: {{location.coordinates.[1] }},
         lng: {{ location.coordinates.[0] }}
       },
-      type: "{{ type }}"
+      pictureUrl: "{{pictureUrl}}",
+      creator: "{{creator.name}}"
     },
   {{/each}}
 ]
-console.log(placeArray);
+//console.log(placeArray);
   function initMap () {
     const map = new window.google.maps.Map(document.getElementById('map-container'), {
       center: { lat: 38.75, lng: -9.15 }, zoom: 8});
-    
        
     for (let place of placeArray) {
-      let information = `<h3>${place.name}</h3><small>Published by ${ place.creator }</small>`;
+      //console.log(place);
+      let information = `
+      <style>
+          .img-google-mini {
+              width: 50px;
+               border-radius: 50%;
+              }   
+      </style>
+      <h3>${place.name}</h3>
+      <img class="img-google-mini" src="${place.pictureUrl}">
+      <small>Published by ${place.creator}</small><br>
+      <small>Double click for more information</small>`;
     
     let infowindow = new google.maps.InfoWindow({
           content: information
@@ -38,7 +49,7 @@ console.log(placeArray);
 });
 marker.addListener('click', function() {
           infowindow.open(map, marker);
-          setTimeout(function () { infowindow.close(); }, 1500);
+          setTimeout(function () { infowindow.close(); }, 3000);
         });  
 marker.addListener('dblclick', () => {
         const endpoint = `/places/${place.id}`;
