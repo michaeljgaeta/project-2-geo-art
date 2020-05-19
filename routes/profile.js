@@ -50,6 +50,20 @@ profileRouter.post("/:userId/edit", routeGuard, (req, res, next) => {
       next(error);
     });
 });
+
+//DELETE Profile
+profileRouter.post("/profile/:id", (req, res, next) => {
+  const id = req.params.id;
+
+  Place.findByIdAndDelete(id)
+    .then((place) => {
+      res.redirect("/");
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 profileRouter.get("/private", routeGuard, (req, res, next) => {
   res.render("private");
 });

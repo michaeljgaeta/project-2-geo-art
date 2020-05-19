@@ -4,16 +4,32 @@ const { Router } = require("express");
 const bcryptjs = require("bcryptjs");
 const User = require("./../models/user");
 const routeGuard = require("./../middleware/route-guard");
-const cloudinary = require("cloudinary");
-const multer = require("multer");
-const multerStorageCloudinary = require("multer-storage-cloudinary");
 const router = new Router();
+
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const multerStorageCloudinary = require("multer-storage-cloudinary");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = multerStorageCloudinary({
+  cloudinary,
+  folder: "GEOARTPROJECT"
+});
+
+const uploader = multer({ storage });
 
 router.get("/sign-up", (req, res, next) => {
   res.render("authentication/sign-up");
 });
 
-router.post("/sign-up", (req, res, next) => {
+//
+router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
+  const picture = req.file.url;
   const { name, email, password } = req.body;
   bcryptjs
     .hash(password, 10)
@@ -21,7 +37,8 @@ router.post("/sign-up", (req, res, next) => {
       return User.create({
         name,
         email,
-        passwordHash: hash
+        passwordHash: hash,
+        picture
       });
     })
     .then((user) => {
@@ -35,17 +52,6 @@ router.post("/sign-up", (req, res, next) => {
 
 router.get("/sign-in", (req, res, next) => {
   res.render("authentication/sign-in");
-});
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
-
-const storage = multerStorageCloudinary({
-  cloudinary,
-  folder: "geo-art"
 });
 
 router.post("/sign-in", (req, res, next) => {

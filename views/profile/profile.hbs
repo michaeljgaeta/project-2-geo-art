@@ -1,4 +1,8 @@
 <h2>{{user.name}}'s Profile</h2>
-<img class="img-profile" src="{{picture}}" alt='user profile image' />
+<img class="img-profile" src="{{user.picture}}" alt='user profile image' />
 <br>
 <a href="/profile/{{user._id}}/edit">Update Details</a>
+
+<form action="/profile/{{_id }}" method="POST">
+<button>Delete Profile</button>
+</form>ç

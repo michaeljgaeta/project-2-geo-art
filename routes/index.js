@@ -19,7 +19,7 @@ cloudinary.config({
 
 const storage = multerStorageCloudinary({
   cloudinary,
-  folder: "april-2020"
+  folder: "GEOARTPROJECT"
 });
 
 const uploader = multer({ storage });
