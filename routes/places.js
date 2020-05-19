@@ -67,6 +67,18 @@ placesRouter.post("/create", routeGuard, uploader.single("picture"), (req, res, 
     });
 });
 
+//MAP OF ALL PLACES
+placesRouter.get("/map", (req, res, next) => {
+  Place.find()
+    .populate("creator")
+    .then((places) => {
+      res.render("places/map", { places });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 //SINGLE PLACE VIEW
 placesRouter.get("/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
@@ -98,20 +110,40 @@ placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, r
   const description = req.body.description;
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
-  const pictureUrl = req.file.url;
+  //const pictureUrl= '';
+  let pictureUrl = "";
+  //Issue: req.file is not defined, therefore its impossible to acces the .url property
+  let updatedDocument = {};
+  if (req.file) {
+    pictureUrl = req.file.url;
+    updatedDocument = {
+      name,
+      description,
+      location: {
+        coordinates: [longitude, latitude]
+      },
+      pictureUrl
+    };
+  } else {
+    updatedDocument = {
+      name,
+      description,
+      location: {
+        coordinates: [longitude, latitude]
+      }
+    };
+  }
 
-  console.log(pictureUrl);
-
-  const query = {
+  /*const query = {
     name,
     description,
     location: {
       coordinates: [longitude, latitude]
     },
     pictureUrl
-  };
+  };*/
 
-  Place.findOneAndUpdate({ _id: id }, query)
+  Place.findOneAndUpdate({ _id: id }, updatedDocument)
     .then((place) => {
       res.redirect("/places/my-list");
     })

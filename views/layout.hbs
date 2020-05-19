@@ -17,7 +17,7 @@
         </a>
         <div>
           {{#if user}}
-            <a href="/map">Map</a>
+            <a href="/places/map">Map</a>
             <a href="/">Feed</a> <!--Number of places can point to COUNT of user posts-->
             <a href="/places/my-list">My Places<span class="badge badge-light">9</span></a>
             <a href="/profile/{{ user._id }}">Profile</a>
@@ -25,7 +25,7 @@
               <button>Sign Out</button>
             </form>
             {{else}}
-            <a href="/map">Map</a>
+            <a href="/places/map">Map</a>
             <a href="/">Feed</a>
             <a href="/authentication/sign-in">Sign In</a>
             <a href="/authentication/sign-up">Sign Up</a>

@@ -1,0 +1,52 @@
+<h2>MAP</h2>
+
+<div id="map-container"></div>
+
+<script>
+  const placeArray = [
+  {{#each places}}
+    {
+      id: "{{_id}}",
+      name:"{{name}}",
+      position: {
+        lat: {{location.coordinates.[1] }},
+        lng: {{ location.coordinates.[0] }}
+      },
+      type: "{{ type }}"
+    },
+  {{/each}}
+]
+console.log(placeArray);
+  function initMap () {
+    const map = new window.google.maps.Map(document.getElementById('map-container'), {
+      center: { lat: 38.75, lng: -9.15 }, zoom: 8});
+    
+       
+    for (let place of placeArray) {
+      let information = `<h3>${place.name}</h3><small>Published by ${ place.creator }</small>`;
+    
+    let infowindow = new google.maps.InfoWindow({
+          content: information
+       });
+      const marker = new google.maps.Marker({
+  position: {
+  	lat: place.position.lat,
+  	lng: place.position.lng
+  },
+  map: map,
+  title: place.name
+});
+marker.addListener('click', function() {
+          infowindow.open(map, marker);
+          setTimeout(function () { infowindow.close(); }, 1500);
+        });  
+marker.addListener('dblclick', () => {
+        const endpoint = `/places/${place.id}`;
+        window.location = endpoint;
+      });
+      console.log(marker);
+    }
+  }
+</script>
+{{>mapscript}}
+© 2020 GitHub, Inc.
