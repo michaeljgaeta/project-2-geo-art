@@ -49,7 +49,6 @@ placesRouter.post("/create", routeGuard, uploader.single("picture"), (req, res, 
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
   const pictureUrl = req.file.url;
-  console.log(req.user.id);
 
   return Place.create({
     name,
@@ -100,6 +99,8 @@ placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, r
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
   const pictureUrl = req.file.url;
+
+  console.log(pictureUrl);
 
   const query = {
     name,
