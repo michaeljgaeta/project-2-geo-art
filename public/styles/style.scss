@@ -49,9 +49,19 @@ p {
   }
 }
 
-img {
+.img-feed {
   width: 100%;
   max-width: 100%;
+}
+
+.img-profile {
+  width: 50px;
+  height: 50px;
+}
+
+.img-list {
+  width: 40%;
+  height: 40%;
 }
 
 form {
@@ -73,6 +83,6 @@ button,
 }
 
 textarea {
-  min-height: 8em;
+  min-height: 6em;
   resize: vertical;
 }
