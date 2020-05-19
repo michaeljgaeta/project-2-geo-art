@@ -15,10 +15,10 @@ profileRouter.get("/my-places", routeGuard, (req, res, next) => {
   res.render("profile/my-places");
 });
 
-profileRouter.get("/:userId/edit", routeGuard, (req, res, next) => {
-  const userId = req.params.userId;
+profileRouter.get("/edit/:userid", routeGuard, (req, res, next) => {
+  const id = req.params.userid;
 
-  User.findById(userId)
+  User.findById(id)
     .then((user) => {
       res.render("profile/edit", { user });
     })
@@ -26,35 +26,56 @@ profileRouter.get("/:userId/edit", routeGuard, (req, res, next) => {
       next(error);
     });
 });
-profileRouter.post("/:userId/edit", routeGuard, (req, res, next) => {
-  const id = req.user.id;
-  const email = req.body.email;
+
+//PROBLEM GETTING REQ.BODY INFORMATION, APPEARS UNDEFINED
+profileRouter.post("/edit/:userid", routeGuard, (req, res, next) => {
+  const id = req.params.userid;
+
   const name = req.body.name;
-  const password = req.body.password;
+  const email = req.body.email;
   const location = req.body.location;
-  User.findByIdAndUpdate(
-    {
-      _id: req.user.id
-    },
-    {
-      email,
+  const bio = req.body.bio;
+
+  console.log(id, email, name, location, bio);
+
+  res.redirect("/");
+
+  /*let picture = "";
+
+  let updatedDocument = {};
+
+  if (req.file) {
+    pictureUrl = req.file.url;
+    updatedDocument = {
       name,
-      password,
-      location
-    }
-  )
+      email,
+      location,
+      bio,
+      picture
+    };
+  } else {
+    updatedDocument = {
+      name,
+      email,
+      location,
+      bio
+    };
+  }*/
+
+  //User.findByIdAndUpdate({ _id: id }, updatedDocument)
+
+  /*
     .then((document) => {
-      res.redirect(`/profile/${id}`);
+      res.redirect("/");
     })
     .catch((error) => {
       next(error);
-    });
+    });*/
 });
 
 //DELETE Profile
 profileRouter.post("/delete", (req, res, next) => {
   const id = req.user._id;
-  //console.log("User to be deleted", id);
   User.findByIdAndDelete(id)
     .then((user) => {
       res.redirect("/");
@@ -64,7 +85,4 @@ profileRouter.post("/delete", (req, res, next) => {
     });
 });
 
-profileRouter.get("/private", routeGuard, (req, res, next) => {
-  res.render("private");
-});
 module.exports = profileRouter;

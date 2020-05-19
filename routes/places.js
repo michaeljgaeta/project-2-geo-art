@@ -110,8 +110,10 @@ placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, r
   const description = req.body.description;
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
+
   //const pictureUrl= '';
   let pictureUrl = "";
+
   //Issue: req.file is not defined, therefore its impossible to acces the .url property
   let updatedDocument = {};
   if (req.file) {
@@ -156,9 +158,12 @@ placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, r
 placesRouter.post("/delete/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
 
-  Place.findByIdAndDelete(id)
+  Place.findOneAndDelete({
+    _id: id,
+    creator: req.user._id
+  })
     .then((place) => {
-      res.redirect("/places/my-list");
+      res.redirect("/");
     })
     .catch((error) => {
       next(error);
