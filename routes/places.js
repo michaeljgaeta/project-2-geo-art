@@ -154,6 +154,21 @@ placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, r
     });
 });
 
+//Like System
+placesRouter.post("/like/:id", routeGuard, (req, res, next) => {
+  const postId = req.params.id;
+  const userId = req.user._id;
+  console.log("Post:" + postId, userId);
+
+  Place.findByIdAndUpdate({ _id: postId }, { $inc: { like_count: 1 } })
+    .then((place) => {
+      console.log(place);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 //DELETE PLACE
 placesRouter.post("/delete/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;

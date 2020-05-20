@@ -16,6 +16,13 @@ const placeSchema = new mongoose.Schema(
       maxlength: 200,
       required: true
     },
+    like_count: { type: Number, default: 0 },
+
+    user_liked: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User"
+    },
     location: {
       type: {
         type: String,

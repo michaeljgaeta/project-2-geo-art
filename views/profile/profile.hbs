@@ -2,6 +2,15 @@
 <img class="img-profile" src="{{user.picture}}" alt='user profile image' />
 <br>
 <div class="flex-column">
+{{#if user.location}}
+<label>Location: {{user.location}}</label>
+{{/if}}
+<br>
+{{#if user.bio}}
+<label>About me: {{user.bio}}</label>
+{{/if}}
+</div>
+<div class="flex-column">
   <div>
     <button type="button" class="btn btn-link"><a href="/profile/edit/{{user._id}}">Update Details</a></button>
   </div>

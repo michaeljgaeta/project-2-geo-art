@@ -1,7 +1,14 @@
 {{#with place}}
 
+
+
 <h2>Name: {{ name }}</h2>
 <img class="img-list" src="{{pictureUrl}}"/>
+
+<form action="/places/like/{{_id }}" method="POST">
+<label id="countLike">{{like_count}}</label>
+<button id="likeButton">Like</button>
+</form>
 
 <p>Description: {{ description }}</p>
 <p><strong>Where You can find me:</strong></p>
@@ -16,8 +23,30 @@
 <button>Delete Post</button>
 </form>
 
-<script>
-  //console.log({{location.coordinates.[0]}})
+<script>  
+    
+    let $likeButton = document.getElementById("likeButton");
+$likeButton.onclick = function (event) {
+   let $countLike = document.getElementById("countLike");
+   if ($likeButton.innerText==='Like'){
+    let countLike = Number($countLike.innerText);
+    countLike++;
+   $countLike.innerText = countLike;
+   $likeButton.innerText='Dislike'
+   } else{
+  let countLike = Number($countLike.innerText);
+  if (countLike>0){
+  countLike--;
+  }else {
+    countLike=0;
+  }
+
+   $countLike.innerText = countLike;
+   $likeButton.innerText='Like'
+   }
+};
+
+
 
 const longitude = {{location.coordinates.[0]}};
 const latitude = {{location.coordinates.[1]}};
