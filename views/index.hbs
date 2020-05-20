@@ -12,6 +12,16 @@
         <!-- Title -->
         <h4 class="card-title font-weight-bold mb-2">{{ name }}</h4>
         <!-- Subtitle -->
+        <!--DATE FORMATTING
+        <script>
+          Handlebars.registerHelper('readableDate' function (dateMilli) {
+          var d = (new Date(dateMilli) + '').split(' ');
+          d[2] = d[2] + ',';
+          return [d[0], d[1], d[2], d[3]].join(' ');
+          }
+          var datemilli = Date.parse('Sun May 11,2014');
+          console.log(taskDate(datemilli));
+        </script>-->
         <p class="card-text"><i class="far fa-clock pr-2"></i>{{createdDate}}</p>
       </div>
     </div>

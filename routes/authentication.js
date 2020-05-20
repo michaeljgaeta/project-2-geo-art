@@ -5,6 +5,8 @@ const bcryptjs = require("bcryptjs");
 const User = require("./../models/user");
 const routeGuard = require("./../middleware/route-guard");
 const router = new Router();
+const nodemailer = require("nodemailer");
+const randomToken = require("random-token");
 
 const multer = require("multer");
 const cloudinary = require("cloudinary");
@@ -23,12 +25,26 @@ const storage = multerStorageCloudinary({
 
 const uploader = multer({ storage });
 
+//define transporter
+let transporter = nodemailer.createTransport({
+  host: "smtp-mail.outlook.com", // hostname
+  secureConnection: false, // TLS requires secureConnection to be false
+  port: 587, // port for secure SMTP
+  tls: {
+    ciphers: "SSLv3"
+  },
+  auth: {
+    user: process.env.NODEMAILER_EMAIL,
+    pass: process.env.NODEMAILER_PASSWORD
+  }
+});
+
 router.get("/sign-up", (req, res, next) => {
   res.render("authentication/sign-up");
 });
 
-//
 router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
+  //PASSWORD HASH
   const picture = req.file.url;
   const { name, email, password } = req.body;
   bcryptjs
@@ -38,12 +54,40 @@ router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
         name,
         email,
         passwordHash: hash,
+        confirmationCode: randomToken.salt(),
         picture
       });
     })
     .then((user) => {
       req.session.user = user._id;
+    });
+  //CONFIRMATION EMAIL
+  transporter
+    .sendMail({
+      from: `ArtGeo Team <${process.env.NODEMAILER_EMAIL}>`,
+      to: email,
+      subject: "Please Verify Your Email",
+      html: `<strong>Welcome to the app!</strong><br><a href=localhost:3000><a href="http://localhost:3000/authentication/confirm/${user.confirmationCode}">Verify Email</a>`
+    })
+    .then((result) => {
       res.redirect("/");
+      console.log("confirmation email sent successfuly");
+      console.log(result);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+//USER CONFIRMATION CODE COMPARISON
+router.get("/confirm/:confirmationCode", (req, res, next) => {
+  let user;
+  //const { confirmationCode } = req.params;
+  User.findOne({ confirmationCode })
+    .then((document) => {
+      if (document) {
+        res.render("/authentication/confirm");
+      }
     })
     .catch((error) => {
       next(error);

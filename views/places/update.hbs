@@ -1,16 +1,13 @@
 {{#with place}}
 <h3>You are updating: {{name}}</h3>
 
-  <form action="" method="POST" enctype="multipart/form-data">
-
+<form class="container" enctype="multipart/form-data" method="POST">
 <div>
-<img class="img-list" src="{{pictureUrl}}">
-
+  <img class="img-list" src="{{pictureUrl}}">
   <div>
-  <label for="picture-input">Update Picture:</label><br>
-  <input id="picture-input" name="picture" type="file"/>
-</div>
-
+    <label for="picture-input">Update Picture:</label><br>
+    <input id="picture-input" name="picture" type="file"/>
+  </div>
 </div>
 
 <label for="name">Name:</label>
@@ -27,10 +24,45 @@
 
 <div id="map-container"></div>
 
-
 <button>Update art place</button>
 </form>
 
+
+
+
+<div class="col-6">
+    <div class="form-group">
+      <label for="name">Title</label>
+      <input required type="text" id="name" name="name" class="form-control" placeholder="If it had a name, what would you call it?"/>
+    </div>
+    <div class="form-group">
+      <label for="description-input">Description</label>
+      <input required type="textarea" name="description" id="description-input" class="form-control" rows="2" placeholder="What's interesting about it?"/>
+    </div>
+    <div>
+      <input required id="picture-input" name="picture" type="file" class="form-control-file" />
+    </div>
+    <div>
+      <!--latitude-->
+      <input required id="latitude-input" type="hidden" name="latitude" placeholder="Place Latitude"> <!--form type hidden-->
+    </div>
+    <div>
+      <!--longitude-->
+      <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude"> <!--form type hidden-->
+    </div>
+    <small class="form-text text-muted">Before sharing, don't forget to select the location on the map.</small>
+    <button class="btn btn-primary mt-5">Share</button>
+  </div>
+  <!--DIV 2-->
+  <div class="col-6">
+    <p><strong>Step 2:</strong> Select location of the art.</p>
+    <div id="map-container">
+    </div>
+  </div>
+</div>
+</form>
+
+<!--Map Script-->
 <script>
 
  const $inputLatitude = document.getElementById('latitude-input');

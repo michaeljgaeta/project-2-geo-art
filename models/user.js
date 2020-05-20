@@ -20,6 +20,13 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 8
     },
+    status: { 
+      Type: String,
+      enum: ['Pending Confirmation', 'Active']
+    },
+    confirmationCode: {
+      Type: String
+    },
     location: {
       type: String
     },
