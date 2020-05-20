@@ -1,31 +1,53 @@
 {{#with place}}
 
+<h3>{{ name }}</h3>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-6">
+      <img class="img-list" src="{{pictureUrl}}"/>
+      <p>{{ description }}</p>
+      <form action="/places/like/{{_id }}" method="POST">
+        <label id="countLike">{{like_count}}</label>
+        <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Like</button>
+      </form>
+      <br>
+      <button class="btn btn-link"><a href="/places/update/{{ _id }}">Update Details</a></button>
+      <div> <!--new thing-->
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Delete Post</button>
+      </div>
+    </div>
+    <div class="col-6">
+      <div id="map-container"></div>
+      <small><strong>Date Created:</strong> {{createdDate}}</small>
+      <p>Latitude: {{location.coordinates.[1]}} | Longitude: {{location.coordinates.[0]}}</p>
+    </div>
+  </div>
+</div>
 
+<!-- Delete Post Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind!</button>
+        <form action="/places/delete/{{_id }}" method="POST">
+          <button class="btn btn-primary">Yes, Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-<h2>Name: {{ name }}</h2>
-<img class="img-list" src="{{pictureUrl}}"/>
-
-<form action="/places/like/{{_id }}" method="POST">
-
-<button id="likeButton">Like</button>
-
-<label id="countLike">{{like_count}}</label>
-
-</form>
-
-<p>Description: {{ description }}</p>
-<p><strong>Where You can find me:</strong></p>
-<p>Latitude: {{location.coordinates.[1]}} | Longitude: {{location.coordinates.[0]}}</p>
-<div id="map-container"></div>
-
-<small><strong>Created at:</strong> {{createdDate}}</small><br>
-
-<a href="/places/update/{{ _id }}">Update Place</a>
-
-<form action="/places/delete/{{_id }}" method="POST">
-<button>Delete Post</button>
-</form>
-
+<!--Map Script-->
 <script>  
     /*
     let $likeButton = document.getElementById("likeButton");
