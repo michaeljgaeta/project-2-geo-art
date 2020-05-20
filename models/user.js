@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema(
     },
     passwordHash: {
       type: String,
-      required: true
+      required: true,
+      minlength: 8
     },
     location: {
       type: String
