@@ -82,9 +82,17 @@ placesRouter.get("/map", (req, res, next) => {
 //SINGLE PLACE VIEW
 placesRouter.get("/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
+
+  let post;
+
   Place.findById(id)
     .then((place) => {
-      res.render("places/single", { place });
+      post = place.toObject();
+      if (req.user && post.creator.toString() === req.user._id.toString()) {
+        post.isOwner = true;
+      }
+      console.log(post.isOwner);
+      res.render("places/single", { place, post });
     })
     .catch((error) => {
       next(error);
@@ -158,7 +166,7 @@ placesRouter.post("/update/:id", routeGuard, uploader.single("picture"), (req, r
 placesRouter.post("/like/:id", routeGuard, (req, res, next) => {
   const postId = req.params.id;
   const userId = req.user._id;
-  console.log("Post:" + postId, userId);
+
   //FIND ID USER IN LIKED ARRAY
   Place.findOne({
     _id: postId,
@@ -173,7 +181,6 @@ placesRouter.post("/like/:id", routeGuard, (req, res, next) => {
           { $inc: { like_count: 1 }, $push: { user_liked: userId } }
         )
           .then((place) => {
-            console.log("Added like");
             res.redirect(`/places/${place._id}`);
           })
           .catch((error) => {
@@ -187,7 +194,6 @@ placesRouter.post("/like/:id", routeGuard, (req, res, next) => {
           { $inc: { like_count: -1 }, $pull: { user_liked: userId } }
         )
           .then((place) => {
-            console.log("Deleted Like and User");
             res.redirect(`/places/${place._id}`);
           })
           .catch((error) => {

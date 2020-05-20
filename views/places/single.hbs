@@ -6,20 +6,46 @@
     <div class="col-6">
       <img class="img-list" src="{{pictureUrl}}"/>
       <p>{{ description }}</p>
+      <!--SEE ALL COMMENTS FORM-->
+      <div class="row" >
+      <form action="/comments/place/{{ _id }}" method="GET" style="margin-right: 25px;">
+       <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>See all Comments</button>
+       </form>
+      <!--LIKE FORM-->
       <form action="/places/like/{{_id }}" method="POST">
+       <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Like</button>
         <label id="countLike">{{like_count}}</label>
-        <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Like</button>
       </form>
+      </div>
+      {{/with}}
       <br>
-      <button class="btn btn-link"><a href="/places/update/{{ _id }}">Update Details</a></button>
-      <div> <!--new thing-->
+
+<!--IF IT'S THE OWNER OF THE PLACE SHOW UPDATE AND DELETE OPTIONS-->
+      {{#if post.isOwner}}
+      <div>
+      <p>Will show the last 3 comments and a link to see all comments</p>
+      <button class="btn btn-link"><a href="/places/update/{{ place._id }}">Update Details</a></button>
+       <!--new thing-->
         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Delete Post</button>
       </div>
+      {{else}}
+      <!--Comment-->
+      <div>
+<form action="/comments/place/{{ _id }}" method="POST">
+  <label for="message-input">Post Comment</label><br>
+  <textarea id="message-input" name="message" placeholder="Post Comment"></textarea><br>
+
+  <button>Submit Comment</button>
+</form>
+</div>
+      {{/if}}
+
+     {{#with place}}
     </div>
     <div class="col-6">
       <div id="map-container"></div>
       <small><strong>Date Created:</strong> {{createdDate}}</small>
-      <p>Latitude: {{location.coordinates.[1]}} | Longitude: {{location.coordinates.[0]}}</p>
+      <p><strong>Latitude:</strong> {{location.coordinates.[1]}} | <strong>Longitude:</strong> {{location.coordinates.[0]}}</p>
     </div>
   </div>
 </div>
@@ -49,29 +75,6 @@
 
 <!--Map Script-->
 <script>  
-    /*
-    let $likeButton = document.getElementById("likeButton");
-$likeButton.onclick = function (event) {
-   let $countLike = document.getElementById("countLike");
-   if ($likeButton.innerText==='Like'){
-    let countLike = Number($countLike.innerText);
-    countLike++;
-   $countLike.innerText = countLike;
-   $likeButton.innerText='Dislike'
-   } else{
-  let countLike = Number($countLike.innerText);
-  if (countLike>0){
-  countLike--;
-  }else {
-    countLike=0;
-  }
-
-   $countLike.innerText = countLike;
-   $likeButton.innerText='Like'
-   }
-};
-*/
-
 
 const longitude = {{location.coordinates.[0]}};
 const latitude = {{location.coordinates.[1]}};

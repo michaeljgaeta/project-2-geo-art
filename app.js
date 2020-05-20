@@ -21,6 +21,7 @@ const authenticationRouter = require("./routes/authentication");
 const profileRouter = require("./routes/profile");
 const placesRouter = require("./routes/places");
 const contactRouter = require("./routes/contact");
+const commentsRouter = require("./routes/comments");
 //--------------------------------------------------------
 
 //PARTIAL -------------------------------
@@ -75,6 +76,7 @@ app.use("/", indexRouter);
 app.use("/authentication", authenticationRouter);
 app.use("/profile", profileRouter);
 app.use("/places", placesRouter);
+app.use("/comments", commentsRouter);
 app.use("/contact", contactRouter);
 
 // Catch missing routes and forward to error handler
