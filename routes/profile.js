@@ -5,6 +5,25 @@ const routeGuard = require("./../middleware/route-guard");
 
 const User = require("./../models/user");
 
+//CLOUDINARY CONFIG-------------------------------
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const multerStorageCloudinary = require("multer-storage-cloudinary");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = multerStorageCloudinary({
+  cloudinary,
+  folder: "GEOARTPROJECT"
+});
+
+const uploader = multer({ storage });
+//--------------------------------------------------
+
 profileRouter.get("/:userId", routeGuard, (req, res, next) => {
   const userId = req.params.userId;
   //console.log(userId);
@@ -14,6 +33,8 @@ profileRouter.get("/:userId", routeGuard, (req, res, next) => {
 profileRouter.get("/my-places", routeGuard, (req, res, next) => {
   res.render("profile/my-places");
 });
+
+//UPDATE PROFILE
 
 profileRouter.get("/edit/:userid", routeGuard, (req, res, next) => {
   const id = req.params.userid;
@@ -27,8 +48,7 @@ profileRouter.get("/edit/:userid", routeGuard, (req, res, next) => {
     });
 });
 
-//PROBLEM GETTING REQ.BODY INFORMATION, APPEARS UNDEFINED
-profileRouter.post("/edit/:userid", routeGuard, (req, res, next) => {
+profileRouter.post("/edit/:userid", routeGuard, uploader.single("picture"), (req, res, next) => {
   const id = req.params.userid;
 
   const name = req.body.name;
@@ -36,11 +56,7 @@ profileRouter.post("/edit/:userid", routeGuard, (req, res, next) => {
   const location = req.body.location;
   const bio = req.body.bio;
 
-  console.log(id, email, name, location, bio);
-
-  res.redirect("/");
-
-  /*let picture = "";
+  let picture = "";
 
   let updatedDocument = {};
 
@@ -60,17 +76,16 @@ profileRouter.post("/edit/:userid", routeGuard, (req, res, next) => {
       location,
       bio
     };
-  }*/
+  }
 
-  //User.findByIdAndUpdate({ _id: id }, updatedDocument)
+  User.findByIdAndUpdate({ _id: id }, updatedDocument)
 
-  /*
     .then((document) => {
       res.redirect("/");
     })
     .catch((error) => {
       next(error);
-    });*/
+    });
 });
 
 //DELETE Profile
