@@ -41,10 +41,16 @@ const placeSchema = new mongoose.Schema(
   },
   {
     timestamps: {
+      /*currentTime: () => Math.floor(Date.now() / 1000)*/
       createdAt: "createdDate",
       updatedAt: "updatedDate"
-    }
+    },
+  },
+  {
+  time: { 
+    type: Date, 
+    default: Date.now
   }
-);
+});
 
 module.exports = mongoose.model("Place", placeSchema);

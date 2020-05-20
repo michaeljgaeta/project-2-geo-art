@@ -20,6 +20,7 @@ const indexRouter = require("./routes/index");
 const authenticationRouter = require("./routes/authentication");
 const profileRouter = require("./routes/profile");
 const placesRouter = require("./routes/places");
+const contactRouter = require("./routes/contact");
 //--------------------------------------------------------
 
 //PARTIAL -------------------------------
@@ -56,7 +57,7 @@ app.use(
     resave: true,
     saveUninitialized: false,
     cookie: {
-      maxAge: 60 * 60 * 24 * 15 * 1000, // 15 days
+      maxAge: 60 * 60 * 24 * 15 * 1000,
       sameSite: "lax",
       httpOnly: true,
       secure: process.env.NODE_ENV === "production"
@@ -74,6 +75,7 @@ app.use("/", indexRouter);
 app.use("/authentication", authenticationRouter);
 app.use("/profile", profileRouter);
 app.use("/places", placesRouter);
+app.use("/contact", contactRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
