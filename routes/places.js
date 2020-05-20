@@ -159,10 +159,41 @@ placesRouter.post("/like/:id", routeGuard, (req, res, next) => {
   const postId = req.params.id;
   const userId = req.user._id;
   console.log("Post:" + postId, userId);
-
-  Place.findByIdAndUpdate({ _id: postId }, { $inc: { like_count: 1 } })
-    .then((place) => {
-      console.log(place);
+  //FIND ID USER IN LIKED ARRAY
+  Place.findOne({
+    _id: postId,
+    user_liked: userId
+  })
+    //.populate(user_liked)
+    .then((thruty) => {
+      if (!thruty) {
+        //IF DON'T EXISTS INCREMENT 1 AND PUSH A USER TO THE ARRAY
+        Place.findByIdAndUpdate(
+          { _id: postId },
+          { $inc: { like_count: 1 }, $push: { user_liked: userId } }
+        )
+          .then((place) => {
+            console.log("Added like");
+            res.redirect(`/places/${place._id}`);
+          })
+          .catch((error) => {
+            next(error);
+          });
+      }
+      //IF USER EXIST DECREMENT 1 AND SLICE THE USER FROM THE ARRAY
+      else {
+        Place.findByIdAndUpdate(
+          { _id: postId },
+          { $inc: { like_count: -1 }, $pull: { user_liked: userId } }
+        )
+          .then((place) => {
+            console.log("Deleted Like and User");
+            res.redirect(`/places/${place._id}`);
+          })
+          .catch((error) => {
+            next(error);
+          });
+      }
     })
     .catch((error) => {
       next(error);

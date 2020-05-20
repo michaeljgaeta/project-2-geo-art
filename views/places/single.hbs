@@ -6,8 +6,11 @@
 <img class="img-list" src="{{pictureUrl}}"/>
 
 <form action="/places/like/{{_id }}" method="POST">
-<label id="countLike">{{like_count}}</label>
+
 <button id="likeButton">Like</button>
+
+<label id="countLike">{{like_count}}</label>
+
 </form>
 
 <p>Description: {{ description }}</p>
@@ -24,7 +27,7 @@
 </form>
 
 <script>  
-    
+    /*
     let $likeButton = document.getElementById("likeButton");
 $likeButton.onclick = function (event) {
    let $countLike = document.getElementById("countLike");
@@ -45,7 +48,7 @@ $likeButton.onclick = function (event) {
    $likeButton.innerText='Like'
    }
 };
-
+*/
 
 
 const longitude = {{location.coordinates.[0]}};

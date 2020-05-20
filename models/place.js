@@ -18,11 +18,14 @@ const placeSchema = new mongoose.Schema(
     },
     like_count: { type: Number, default: 0 },
 
-    user_liked: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User"
-    },
+    user_liked: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        unique: true,
+        ref: "User"
+      }
+    ],
     location: {
       type: {
         type: String,
@@ -51,13 +54,14 @@ const placeSchema = new mongoose.Schema(
       /*currentTime: () => Math.floor(Date.now() / 1000)*/
       createdAt: "createdDate",
       updatedAt: "updatedDate"
-    },
+    }
   },
   {
-  time: { 
-    type: Date, 
-    default: Date.now
+    time: {
+      type: Date,
+      default: Date.now
+    }
   }
-});
+);
 
 module.exports = mongoose.model("Place", placeSchema);
