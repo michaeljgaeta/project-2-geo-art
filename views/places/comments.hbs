@@ -1,0 +1,29 @@
+
+
+{{#if comment}}
+
+{{#with comment.[0]}}
+<h1> All {{place.name}}'s Comments</h1>
+
+<form action="/comments/create/{{place._id}}" method="POST">
+  <label for="message">Post Comment</label><br>
+  <textarea id="message" name="message" placeholder="Post Comment"></textarea><br>
+
+  <button>Submit Comment</button>
+</form>
+{{/with}}
+{{else}}
+
+<form action="/comments/create/{{place}}" method="POST">
+  <label for="message">Post Comment</label><br>
+  <textarea id="message" name="message" placeholder="Post Comment"></textarea><br>
+
+  <button>Submit Comment</button>
+</form>
+
+ {{/if}}
+
+  {{> commentlist}}
+  
+
+

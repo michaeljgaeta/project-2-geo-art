@@ -225,7 +225,7 @@ placesRouter.post("/delete/:id", routeGuard, (req, res, next) => {
 
 //DIRECTIONS
 
-placesRouter.get("/directions/:id", (req, res, next) => {
+placesRouter.get("/directions/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
 
   Place.findById(id)

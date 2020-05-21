@@ -30,7 +30,7 @@ const router = new Router();
 //get place from database, display by most recent
 router.get("/", (req, res, next) => {
   Place.find()
-    .sort({ createdAt: -1 })
+    .sort({ createdDate: -1 })
     // .limit(2)
     // .skip(1)
     .populate("creator")
