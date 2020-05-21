@@ -69,7 +69,7 @@ commentsRouter.get("/single/:id", routeGuard, (req, res, next) => {
 //EDIT COMMENT-------------------------------------------------------
 
 commentsRouter.get("/:placeid/edit/:commentid", routeGuard, (req, res, next) => {
-  const id = req.params.id;
+  const id = req.params.commentid;
 
   Comment.findById({ _id: id })
     .populate("creator place")

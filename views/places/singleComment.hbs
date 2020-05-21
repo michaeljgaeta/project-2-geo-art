@@ -10,9 +10,9 @@
 {{/with}}
 
 {{#if isOwner}}
-
+{{#with comment}}
       <div class="row" >
-      <form action="/comments/{{comment.place._id}}/edit/{{ comment._id }}" method="GET" style="margin-right: 25px;">
+      <form action="/comments/{{place._id}}/edit/{{ _id }}" method="GET" style="margin-right: 25px;">
        <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Edit</button>
        </form>
 <!--
@@ -46,4 +46,5 @@
     </div>
   </div>
 </div>
+{{/with}}
 {{/if}}

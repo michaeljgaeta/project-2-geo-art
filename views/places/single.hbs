@@ -10,7 +10,9 @@
       
       <!--SEE ALL COMMENTS FORM-->
       <div class="row" >
-
+      <form action="/comments/{{ _id }}" method="GET" style="margin-right: 25px;">
+       <button class="btn btn-primary btn-sm">See comments</button>
+      </form>
 
       <!--LIKE FORM-->
       <form action="/places/like/{{_id }}" method="POST">
@@ -21,25 +23,12 @@
       <br>
 
 <!--IF IT'S THE OWNER OF THE PLACE SHOW UPDATE AND DELETE OPTIONS-->
-      {{#if post.isOwner}}
+      {{#if isOwner}}
       <div>
       <button class="btn btn-link"><a href="/places/update/{{ place._id }}">Update Details</a></button>
        <!--new thing-->
         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Delete Post</button>
       </div>
-<<<<<<< HEAD
-=======
-      {{else}}
-      <!--Comment-->
-      <div>
-<form action="/comments/place/{{ place._id }}" method="GET">
-  <label for="message-input">Post Comment</label><br>
-  <textarea id="message-input" name="message" placeholder="Post Comment"></textarea><br>
-
-  <button class="btn btn-link">View Comments</button>
-</form>
-</div>
->>>>>>> 65dac5601984afe0efab969fd921ad8164a0d3f2
       {{/if}}
 
      {{#with place}}

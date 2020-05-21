@@ -83,17 +83,15 @@ placesRouter.get("/map", (req, res, next) => {
 placesRouter.get("/:id", routeGuard, (req, res, next) => {
   const id = req.params.id;
 
-  let post;
+  let isOwner;
 
   Place.findById(id)
     .populate("creator")
     .then((place) => {
-      post = place.toObject();
-      if (req.user && post.creator.toString() === req.user._id.toString()) {
-        post.isOwner = true;
+      if (req.user && place.creator._id.toString() === req.user._id.toString()) {
+        isOwner = true;
       }
-      console.log(post.isOwner);
-      res.render("places/single", { place, post });
+      res.render("places/single", { place, isOwner });
     })
     .catch((error) => {
       next(error);
