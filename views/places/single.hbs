@@ -10,14 +10,11 @@
       
       <!--SEE ALL COMMENTS FORM-->
       <div class="row" >
-      <form action="/comments/{{ _id }}" method="GET" style="margin-right: 25px;">
-       <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>See all Comments</button>
-       </form>
+
 
       <!--LIKE FORM-->
       <form action="/places/like/{{_id }}" method="POST">
-       <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Like</button>
-        <label id="countLike">{{like_count}}</label>
+       <button class="btn btn-primary btn-sm">Like  <span class="badge badge-light">{{like_count}}</span></button>
       </form>
       </div>
       {{/with}}
@@ -37,7 +34,7 @@
   <label for="message-input">Post Comment</label><br>
   <textarea id="message-input" name="message" placeholder="Post Comment"></textarea><br>
 
-  <button>Submit Comment</button>
+  <button class="btn btn-link">View Comments</button>
 </form>
 </div>
       {{/if}}
