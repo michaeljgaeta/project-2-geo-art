@@ -1,6 +1,7 @@
 {{#with place}}
 
 <h3>{{ name }}</h3>
+<small><strong>Created by:</strong> {{creator.name}}</small>
 <div class="container mt-4">
   <div class="row">
     <div class="col-6">
@@ -45,7 +46,10 @@
     <div class="col-6">
       <div id="map-container"></div>
       <small><strong>Date Created:</strong> {{createdDate}}</small>
-      <p><strong>Latitude:</strong> {{location.coordinates.[1]}} | <strong>Longitude:</strong> {{location.coordinates.[0]}}</p>
+      <p><strong>Latitude:</strong> {{location.coordinates.[1]}} | <strong>Longitude:</strong> {{location.coordinates.[0]}}</p><br>
+      <form action="/places/directions/{{ _id }}" method="GET">
+       <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Get directions to this art!</button>
+      </form>
     </div>
   </div>
 </div>

@@ -1,0 +1,115 @@
+{{#with place}}
+<h1>{{name}}'s Art Directions</h1>
+
+<ol>
+
+<li>
+  <p>Locate yourself</p>
+  <div class="row">
+ <button onclick="getLocation()"  style="margin-right: 10px" >Get my Location</button>
+ <p id="checkUser" style="color: green;"></p>
+ </div>
+</li>
+<li>
+<div>
+<p>Select your traveling mode:</p>
+<select id="mode">
+  <option value="DRIVING">Driving</option>
+  <option value="WALKING">Walking</option>
+</select>
+</div>
+</li>
+</ol>
+<small>
+<strong>Note: </strong>The accuracy will depend on the device you use. For best results use your mobile phone.</small>
+
+
+
+
+    
+
+    <div id="map-container"></div>
+    <div id="right-panel"></div>
+    <label>Art Coordenates: Lat:</label>
+<label id="latitude">{{location.coordinates.[1]}}</label>
+<label> | Lng:</label>
+<label id="longitude">{{location.coordinates.[0]}}</label>
+    
+    
+    
+    <script>
+
+//GET USER LOCATION----------------------------------------------
+function getLocation() {
+  if (navigator.geolocation) {
+    let $checkUser = document.getElementById("checkUser");
+    $checkUser.innerText="Your location was found" 
+
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+//SEND USER LOCATION FOR INITMAP FUNCTION()
+function showPosition(position) {
+  initMap(position.coords.latitude, position.coords.longitude);
+}
+//-----------------------------------------------------------------
+
+//MAP LOGIC------------------------------------------------------
+      function initMap(userLatitude, userLongitude) {
+        let latitude = document.getElementById('latitude').innerText;
+let longitude = document.getElementById('longitude').innerText;
+let mode = "DRIVING";
+
+        let directionsRenderer = new google.maps.DirectionsRenderer;
+        let directionsService = new google.maps.DirectionsService;
+        let map;
+        let coords = new google.maps.LatLng(userLatitude, userLongitude);
+        let artPlace = new google.maps.LatLng(latitude, longitude);
+
+          if(!userLatitude){
+            coords=artPlace;
+           }
+           
+
+        let mapOptions = {
+         zoom: 7,
+          center: artPlace  
+        };
+
+        map= new google.maps.Map(document.getElementById("map-container"), mapOptions);
+
+        directionsRenderer.setMap(map);
+        directionsRenderer.setPanel(document.getElementById('right-panel'));
+
+        let control = document.getElementById('floating-panel');
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+
+
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        directionsService.route({
+          origin: coords,
+          destination: artPlace,
+          travelMode: mode,
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+            
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+
+      
+
+      document.getElementById('mode').onchange= function(){
+        mode = document.getElementById('mode').value;
+
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+      }
+      }
+    </script>
+{{>mapscript}}
+{{/with}}

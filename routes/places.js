@@ -86,6 +86,7 @@ placesRouter.get("/:id", routeGuard, (req, res, next) => {
   let post;
 
   Place.findById(id)
+    .populate("creator")
     .then((place) => {
       post = place.toObject();
       if (req.user && post.creator.toString() === req.user._id.toString()) {
@@ -216,6 +217,20 @@ placesRouter.post("/delete/:id", routeGuard, (req, res, next) => {
   })
     .then((place) => {
       res.redirect("/");
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+//DIRECTIONS
+
+placesRouter.get("/directions/:id", (req, res, next) => {
+  const id = req.params.id;
+
+  Place.findById(id)
+    .then((place) => {
+      res.render("places/directions", { place });
     })
     .catch((error) => {
       next(error);
