@@ -47,6 +47,11 @@ router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
   //PASSWORD HASH
   const picture = req.file.url;
   const { name, email, password } = req.body;
+  const characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let token = "";
+  for (let i = 0; i < 10; i++) {
+    token += characters[Math.floor(Math.random() * characters.length)];
+  }
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
@@ -54,30 +59,31 @@ router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
         name,
         email,
         passwordHash: hash,
-        confirmationCode: randomToken.salt(),
+        confirmationCode: token,
         picture
       });
     })
     .then((user) => {
       req.session.user = user._id;
-    });
-  //CONFIRMATION EMAIL
-  transporter
-    .sendMail({
-      from: `ArtGeo Team <${process.env.NODEMAILER_EMAIL}>`,
-      to: email,
-      subject: "Please Verify Your Email",
-      html: `<strong>Welcome to the app!</strong><br><a href=localhost:3000><a href="http://localhost:3000/authentication/confirm/${user.confirmationCode}">Verify Email</a>`
-    })
-    .then((result) => {
-      res.redirect("/");
-      console.log("confirmation email sent successfuly");
-      console.log(result);
-    })
-    .catch((error) => {
-      next(error);
+      transporter
+        .sendMail({
+          from: `ArtGeo Team <${process.env.NODEMAILER_EMAIL}>`,
+          to: email,
+          subject: "Please Verify Your Email",
+          html: `<strong>Welcome to the app!</strong><br><a href="http://localhost:3000/authentication/confirm/${user.confirmationCode}">Verify Email</a>`
+        })
+        .then((result) => {
+          res.redirect("/");
+          console.log(`http://localhost:3000/authentication/confirm/${user.confirmationCode}`);
+          console.log("confirmation email sent successfuly");
+          console.log(result);
+        })
+        .catch((error) => {
+          next(error);
+        });
     });
 });
+//CONFIRMATION EMAIL
 
 //USER CONFIRMATION CODE COMPARISON
 router.get("/confirm/:confirmationCode", (req, res, next) => {
