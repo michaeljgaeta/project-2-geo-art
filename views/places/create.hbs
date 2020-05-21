@@ -9,7 +9,7 @@
       </div>
       <div class="form-group">
         <label for="description-input">Description</label>
-        <input required type="textarea" name="description" id="description-input" class="form-control" rows="2" placeholder="What's interesting about it?"/>
+        <input type="textarea" name="description" id="description-input" class="form-control" rows="2" placeholder="What's interesting about it?"/>
       </div>
       <div>
         <input required id="picture-input" name="picture" type="file" class="form-control-file" />
@@ -22,14 +22,13 @@
         <!--longitude-->
         <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude"> <!--form type hidden-->
       </div>
-      <small class="form-text text-muted">Before sharing, don't forget to select the location on the map.</small>
-      <button class="btn btn-primary mt-5">Share</button>
     </div>
     <!--DIV 2-->
     <div class="col-6">
       <p><strong>Step 2:</strong> Select location of the art.</p>
       <div id="map-container">
       </div>
+      <button class="btn btn-primary mt-3">Share</button>
     </div>
   </div>
 </form>
