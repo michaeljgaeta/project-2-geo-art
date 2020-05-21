@@ -30,16 +30,6 @@
        <!--new thing-->
         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Delete Post</button>
       </div>
-      {{else}}
-      <!--Comment-->
-      <div>
-<form action="/comments/place/{{ place._id }}" method="GET">
-  <label for="message-input">Post Comment</label><br>
-  <textarea id="message-input" name="message" placeholder="Post Comment"></textarea><br>
-
-  <button>Submit Comment</button>
-</form>
-</div>
       {{/if}}
 
      {{#with place}}

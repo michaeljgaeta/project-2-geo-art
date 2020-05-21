@@ -7,10 +7,10 @@ const User = require("./../models/user");
 
 const commentsRouter = new express.Router();
 
-//GET ALL COMMENTS VIEW
+//GET ALL COMMENTS VIEW---------------------------------
 commentsRouter.get("/:id", routeGuard, (req, res, next) => {
   const place = req.params.id;
-
+  let post;
   Comment.find({ place })
     .sort({ createdDate: -1 })
     .populate("creator place")
@@ -27,7 +27,7 @@ commentsRouter.get("/:id", routeGuard, (req, res, next) => {
     });
 });
 
-// CREATE A COMMENT
+// CREATE A COMMENT----------------------------
 commentsRouter.post("/create/:id", routeGuard, (req, res, next) => {
   const message = req.body.message;
   const placeId = req.params.id;
@@ -45,6 +45,77 @@ commentsRouter.post("/create/:id", routeGuard, (req, res, next) => {
     });
 });
 
-//
+//SINGLE COMMENT----------------------
 
+commentsRouter.get("/single/:id", routeGuard, (req, res, next) => {
+  const id = req.params.id;
+  let isOwner;
+
+  Comment.findById({ _id: id })
+    .populate("creator place")
+
+    .then((comment) => {
+      if (req.user && comment.creator._id.toString() === req.user._id.toString()) {
+        isOwner = true;
+      }
+      res.render("places/singleComment", { comment, isOwner });
+    })
+
+    .catch((error) => {
+      next(error);
+    });
+});
+
+//EDIT COMMENT-------------------------------------------------------
+
+commentsRouter.get("/:placeid/edit/:commentid", routeGuard, (req, res, next) => {
+  const id = req.params.id;
+
+  Comment.findById({ _id: id })
+    .populate("creator place")
+
+    .then((comment) => {
+      res.render("places/editComment", { comment });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+commentsRouter.post("/:placeid/edit/:commentid", routeGuard, (req, res, next) => {
+  const placeid = req.params.placeid;
+  const commentid = req.params.commentid;
+  const message = req.body.message;
+
+  Comment.findOneAndUpdate(
+    { _id: commentid },
+    {
+      message
+    }
+  )
+
+    .populate("creator place")
+    .then((comment) => {
+      res.redirect(`/comments/${placeid}/edit/${commentid}`, { comment });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+//DELETE COMMENT------------------------------------------------------
+commentsRouter.post("/delete/:id", routeGuard, (req, res, next) => {
+  const id = req.params.id;
+
+  Comment.findOneAndDelete({
+    _id: id,
+    creator: req.user._id
+  })
+    .then((place) => {
+      res.redirect("/");
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 module.exports = commentsRouter;

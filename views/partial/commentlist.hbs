@@ -3,9 +3,12 @@
 <div class="row">
 <img src="{{creator.picture}}" style="margin-right: 20px;width: 40px; height: 40px; border-radius:50%">
 <div>
+   <a href="/comments/single/{{_id}}"><small>See comment</small></a>
   <p><strong>{{creator.name}}</strong> <small>commented:</small></p>
+
 <p>{{message}}</p>
 <small>Posted on: {{createdDate}}</small>
+
 </div>
 </div>
 {{/each}}
