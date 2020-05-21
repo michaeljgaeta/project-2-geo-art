@@ -65,7 +65,14 @@ router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
     })
     .then((user) => {
       req.session.user = user._id;
-      transporter
+      })
+    .then((result) => {
+      res.redirect("/");
+      console.log(`http://localhost:3000/authentication/confirm/${user.confirmationCode}`);
+      console.log("confirmation email sent successfuly");
+      console.log(result);
+    })
+      /*transporter
         .sendMail({
           from: `ArtGeo Team <${process.env.NODEMAILER_EMAIL}>`,
           to: email,
@@ -77,10 +84,9 @@ router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
           console.log(`http://localhost:3000/authentication/confirm/${user.confirmationCode}`);
           console.log("confirmation email sent successfuly");
           console.log(result);
-        })
-        .catch((error) => {
-          next(error);
-        });
+        })*/
+    .catch((error) => {
+      next(error);
     });
 });
 //CONFIRMATION EMAIL
