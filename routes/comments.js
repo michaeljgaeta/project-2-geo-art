@@ -7,6 +7,24 @@ const User = require("./../models/user");
 
 const commentsRouter = new express.Router();
 
+//CLOUDINARY CONFIG-------------------------------
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const multerStorageCloudinary = require("multer-storage-cloudinary");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = multerStorageCloudinary({
+  cloudinary,
+  folder: "GEOARTPROJECT"
+});
+
+const uploader = multer({ storage });
+
 //GET ALL COMMENTS VIEW---------------------------------
 commentsRouter.get("/:id", routeGuard, (req, res, next) => {
   const place = req.params.id;
@@ -82,26 +100,31 @@ commentsRouter.get("/:placeid/edit/:commentid", routeGuard, (req, res, next) => 
     });
 });
 
-commentsRouter.post("/:placeid/edit/:commentid", routeGuard, (req, res, next) => {
-  const placeid = req.params.placeid;
-  const commentid = req.params.commentid;
-  const message = req.body.message;
-  console.log(message);
-  Comment.findOneAndUpdate(
-    { _id: commentid },
-    {
-      message
-    }
-  )
+commentsRouter.post(
+  "/:placeid/edit/:commentid",
+  routeGuard,
+  uploader.single("picture"),
+  (req, res, next) => {
+    const commentid = req.params.commentid;
+    const message = req.body.message;
 
-    .populate("creator place")
-    .then((comment) => {
-      res.redirect("/");
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
+    console.log(message);
+    Comment.findOneAndUpdate(
+      { _id: commentid },
+      {
+        message
+      }
+    )
+
+      .populate("creator place")
+      .then((comment) => {
+        res.redirect("/");
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 //DELETE COMMENT------------------------------------------------------
 commentsRouter.post("/delete/:id", routeGuard, (req, res, next) => {

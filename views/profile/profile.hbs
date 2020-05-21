@@ -1,14 +1,16 @@
 <h2>{{user.name}}'s Profile</h2>
+<div class="row">
 <img class="img-profile" src="{{user.picture}}" alt='user profile image' />
 <br>
-<div class="flex-column">
+<div class="flex-column" style="margin-left: 40px;">
 {{#if user.location}}
-<label>Location: {{user.location}}</label>
+<label><strong>Location:</strong> {{user.location}}</label>
 {{/if}}
 <br>
 {{#if user.bio}}
-<label>About me: {{user.bio}}</label>
+<label><strong>About me:</strong> {{user.bio}}</label>
 {{/if}}
+</div>
 </div>
 <div class="flex-column">
   <div>

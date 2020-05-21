@@ -16,13 +16,15 @@ const placeSchema = new mongoose.Schema(
       maxlength: 200,
       required: true
     },
-    like_count: { type: Number, default: 0 },
-
+    like_count: {
+      type: Number,
+      default: 0
+    },
     user_liked: [
       {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        unique: true,
+        // unique: true,
         ref: "User"
       }
     ],
