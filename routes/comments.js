@@ -86,7 +86,7 @@ commentsRouter.post("/:placeid/edit/:commentid", routeGuard, (req, res, next) =>
   const placeid = req.params.placeid;
   const commentid = req.params.commentid;
   const message = req.body.message;
-
+  console.log(message);
   Comment.findOneAndUpdate(
     { _id: commentid },
     {
@@ -96,7 +96,7 @@ commentsRouter.post("/:placeid/edit/:commentid", routeGuard, (req, res, next) =>
 
     .populate("creator place")
     .then((comment) => {
-      res.redirect(`/comments/${placeid}/edit/${commentid}`, { comment });
+      res.redirect("/");
     })
     .catch((error) => {
       next(error);
