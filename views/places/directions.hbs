@@ -1,24 +1,23 @@
 {{#with place}}
+<div class="page"> 
 <h1>{{name}}'s Art Directions</h1>
-
-<ol>
-<li>
-  <p>Locate yourself</p>
-  <div class="row">
- <button onclick="getLocation()"  style="margin-right: 10px" >Get my Location</button>
+</div>
+<div style="text-align:center">
+<div>
+  <p><strong> Step 1:</strong> Locate yourself</p>
+  <div  style="text-align:center" >
+ <button onclick="getLocation()"   class="btn btn-primary btn-sm" >Get my Location</button>
  <p id="checkUser" style="color: green;"></p>
  </div>
-</li>
-<li>
+</div>
 <div>
-<p>Select your traveling mode:</p>
+<p><p><strong> Step 2:</strong> Select your traveling mode:</p>
 <select id="mode">
   <option value="DRIVING">Driving</option>
   <option value="WALKING">Walking</option>
 </select>
 </div>
-</li>
-</ol>
+</div>
 <small>
 <strong>Note: </strong>The accuracy will depend on the device you use. For best results use your mobile phone.</small>
  
@@ -38,7 +37,7 @@
 function getLocation() {
   if (navigator.geolocation) {
     let $checkUser = document.getElementById("checkUser");
-    $checkUser.innerText="Your location was found" 
+    $checkUser.innerText="Your location was found, wait a seconds to precess" 
 
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 

@@ -16,9 +16,10 @@
         </a>
         <div>
           {{#if user}}
-            <a href="/places/map">Map</a>
+            <a href="/places/map" style="margin-right: 20px;">Map</a>
             <a href="/">Feed</a> <!--Number of places can point to COUNT of user posts-->
-            <a href="/places/my-list">My Posts</a>
+            <a href="/places/my-list">My Gallery</a>
+            <img src="{{user.picture}}" style="border-radius: 50%; width: 30px; height: 30px">
             <a href="/profile/{{ user._id }}">Profile</a>
             <form class="form-check form-check-inline" action="/authentication/sign-out" method="POST">
               <button>Sign Out</button>
@@ -40,7 +41,8 @@
   </body>
   
   <!--Footer Row-->
-    <footer class="container row ceb pt-5 mt-5 mb-5 border-top">
+  <div style="display: flex; align-items:center">
+    <footer class="container row ceb pt-5 mt-5 mb-5 border-top" >
       <div class="col-4">
         <h6 class="pb-1">LEARN</h6>
         <p><a class="text-muted" href="#">About</a></p>
@@ -77,4 +79,5 @@
             </svg>
       </div>-->
     </footer>
+    </div>
 </html>

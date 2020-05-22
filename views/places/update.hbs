@@ -1,35 +1,47 @@
 {{#with place}}
-<h3>You are updating: {{name}}</h3>
-
+<div class="page">
+<h3>You are updating: {{name}}'s Place</h3><br>
+</div>
 <form class="container" enctype="multipart/form-data" method="POST">
-<div>
+<div style="text-align:center">
   <img class="img-list" src="{{pictureUrl}}">
-  <div>
-    <label for="picture-input">Update Picture:</label><br>
+  <div style="margin-top: 30px;">
+    <label for="picture-input"><strong>Update Picture:     </strong></label>
     <input id="picture-input" name="picture" type="file"/>
   </div>
 </div>
-
-<label for="name">Name:</label>
+<div >
+  <div>
+<label for="name"><strong>Title:</strong></label>
 <input type="text" name="name" id="name" value="{{name}}" required>
+</div>
+<div style="margin-top: 40px;">
+<label for="description-input"><strong>Description:</strong></label>
+<input required id="description-input" name="description" value="{{ description }}">
 
-<label for="description-input">Description:</label>
-<textarea required id="description-input" name="description">{{ description }}></textarea>
+</div>
+</div>
 
-<label for="latitude-input">Latitude</label>
+<div>
+  <div style="margin-right: 40px;">
+<label for="latitude-input" style="margin-top: 40px;"><strong>Latitude</strong></label>
 <input required id="latitude-input" type="text" name="latitude" value="{{location.coordinates.[0]}}">
-
-<label for="longitude-input">Longitude</label>
+</div>
+<div>
+<label for="longitude-input"><strong>Longitude</strong></label>
 <input required id="longitude-input" type="text" name="longitude" value="{{location.coordinates.[1]}}">
-
+</div>
+<br>
+</div>
 <div id="map-container"></div>
 
 <button>Update art place</button>
+
 </form>
 
 
 
-
+<!--
 <div class="col-6">
     <div class="form-group">
       <label for="name">Title</label>
@@ -43,23 +55,24 @@
       <input required id="picture-input" name="picture" type="file" class="form-control-file" />
     </div>
     <div>
-      <!--latitude-->
-      <input required id="latitude-input" type="hidden" name="latitude" placeholder="Place Latitude"> <!--form type hidden-->
+      <!--latitude
+      <input required id="latitude-input" type="hidden" name="latitude" placeholder="Place Latitude"> <!--form type hidden
     </div>
     <div>
-      <!--longitude-->
-      <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude"> <!--form type hidden-->
+      <!--longitude
+      <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude"> <!--form type hidden
     </div>
     <small class="form-text text-muted">Before sharing, don't forget to select the location on the map.</small>
     <button class="btn btn-primary mt-5">Share</button>
-  </div>
-  <!--DIV 2-->
+  </div>-->
+  <!--DIV 2
   <div class="col-6">
     <p><strong>Step 2:</strong> Select location of the art.</p>
     <div id="map-container">
     </div>
   </div>
 </div>
+
 </form>
 
 <!--Map Script-->

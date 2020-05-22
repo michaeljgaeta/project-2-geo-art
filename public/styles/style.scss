@@ -78,7 +78,7 @@ p {
 }
 
 .img-list {
-  width: 100%;
+  max-width: 70%;
   height: auto;
 }
 
@@ -123,4 +123,9 @@ button,
   height: 50px;
   border-radius: 50%;
   margin-right: 15px;
+}
+
+.page {
+  text-align: center;
+  margin-top: 20px;
 }

@@ -29,6 +29,9 @@ const uploader = multer({ storage });
 placesRouter.get("/my-list", routeGuard, (req, res, next) => {
   const creator = req.user.id;
   Place.find({ creator })
+
+    .sort({ createdDate: -1 })
+
     .then((places) => {
       //console.log(places);
       res.render("places/my-list", { places });

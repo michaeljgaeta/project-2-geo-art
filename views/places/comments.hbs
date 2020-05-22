@@ -1,8 +1,9 @@
 {{#if comment}}
 
 {{#with comment.[0]}}
+<div class="page">
 <h1> All {{place.name}}'s Comments</h1>
-
+</div>
 <form action="/comments/create/{{place._id}}" method="POST">
   <textarea class="form-control" id="message" rows="3" name="message" placeholder="Post Comment"></textarea>
   <button class="btn btn-primary mt-3">Submit Comment</button>
