@@ -4,7 +4,7 @@
 <form class="container" enctype="multipart/form-data" method="POST">
   <!--DIV 1-->
   <div class="row mt-4">
-    <div class="col-6">
+    <div class="col-12 col-sm-6">
       <p><strong>Step 1:</strong> Enter details about the art.</p>
       <div class="form-group">
         <label for="name">Title</label>
@@ -19,19 +19,23 @@
       </div>
       <div>
         <!--latitude-->
-        <input required id="latitude-input" type="hidden" name="latitude" placeholder="Place Latitude"> <!--form type hidden-->
+        <input required id="latitude-input" type="hidden" name="latitude" placeholder="Place Latitude" value="38"> <!--form type hidden-->
       </div>
       <div>
         <!--longitude-->
-        <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude"> <!--form type hidden-->
+        <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude" value="-8"> <!--form type hidden-->
+      </div>
+      <div class="mt-4 mb-4">
+        <button onclick="getLocation()" class="btn btn-primary btn" >Locate me</button>
+        <p id="checkUser" style="color: green;"></p>
       </div>
     </div>
     <!--DIV 2-->
-    <div class="col-6">
+    <div class="col-12 col-sm-6">
       <p><strong>Step 2:</strong> Select location of the art.</p>
       <div id="map-container">
       </div>
-      <button class="btn btn-primary mt-3">Share</button>
+      <button class="btn btn-primary mt-4">Share</button>
     </div>
   </div>
 </form>
@@ -39,14 +43,47 @@
 <!--Map Script-->
 <script>
 
- const $inputLatitude = document.getElementById('latitude-input');
- const $inputLongitude = document.getElementById('longitude-input');
+//GET USER LOCATION----------------------------------------------
+function getLocation() {
+  if (navigator.geolocation) {
+    let $checkUser = document.getElementById("checkUser");
+    $checkUser.innerText="Your location was found. Click the map to place a marker." 
 
-function initMap() {
-  const mapcoord = {lat: 38.5, lng: -9};
-  
-  const map = new window.google.maps.Map(document.getElementById('map-container'), {zoom: 10, center: mapcoord});
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+//SEND USER LOCATION FOR INITMAP FUNCTION()
+function showPosition(position) {
+  initMap(position.coords.latitude, position.coords.longitude);
+}
+//-----------------------------------------------------------------*/
+
+
+function initMap(userLat, userLng) {
+  let mapcoord={};
+ let $inputLatitude = document.getElementById('latitude-input');
+ let $inputLongitude = document.getElementById('longitude-input');
+ 
+ 
+
+  if(!userLat){
+
+mapcoord = {lat: 38, lng: -8.5};
+  }else{
+
+    $inputLatitude.value = (userLat);
+ $inputLongitude.value = (userLng);
+  mapcoord = {lat: userLat, lng: userLng};
+  }
+
+  const map = new window.google.maps.Map(document.getElementById('map-container'), {zoom: 16, center: mapcoord});
   let marker;
+marker = new google.maps.Marker({
+          position: mapcoord,
+          map: map
+        });
 
 map.addListener('click', event => {
       const latitude = event.latLng.lat();
