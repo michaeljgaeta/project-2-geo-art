@@ -36,7 +36,7 @@
     </div>
     <div class="col-6">
       <div id="map-container"></div>
-      <small><strong>Date Created:</strong> {{createdDate}}</small>
+      <small><strong>Created:</strong> {{commentDate createdDate}}</small>
       <p><strong>Latitude:</strong> {{location.coordinates.[1]}} | <strong>Longitude:</strong> {{location.coordinates.[0]}}</p><br>
       <form action="/places/directions/{{ _id }}" method="GET">
        <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Get directions to this art!</button>
