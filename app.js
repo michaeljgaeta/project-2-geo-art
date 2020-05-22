@@ -30,6 +30,16 @@ const json = require("hbs-json");
 
 hbs.registerHelper("json", json);
 
+hbs.registerHelper("feedDate", function(value) {
+  let feedDate = new Date(value).toDateString();
+  return feedDate;
+});
+
+hbs.registerHelper("commentDate", function(value) {
+  let commentDate = new Date(value).toUTCString();
+  return commentDate;
+});
+
 hbs.registerPartials(__dirname + "/views/partial");
 //----------------------------------------
 
