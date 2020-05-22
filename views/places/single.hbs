@@ -1,47 +1,50 @@
-<div class="page"></div>
 {{#with place}}
 
-<h3>{{ name }}</h3>
+<h3 class="mt-3">{{ name }}</h3>
 <small><strong>Created by:</strong> {{creator.name}}</small>
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-6">
-      <img class="img-list" src="{{pictureUrl}}"/>
-      <p>{{ description }}</p>
-      
-      <!--SEE ALL COMMENTS FORM-->
-      <div class="row" >
-      <form action="/comments/{{ _id }}" method="GET" style="margin-right: 25px;">
-       <button class="btn btn-primary btn-sm">See comments</button>
-      </form>
+<!--ENTIRE CONTENTS-->
+<div class="row mt-4">
+  <!--LEFT CONTAINER-->
+  <div class="col-6 col-sm-4">
+    <img class="img-list" src="{{pictureUrl}}"/>
+    <p>{{ description }}</p>
+    
+    <!--SEE ALL COMMENTS FORM-->
+    <div class="row" >
+    <form action="/comments/{{ _id }}" method="GET" style="margin-right: 25px;">
+      <button class="btn btn-primary btn-sm">See comments</button>
+    </form>
 
-      <!--LIKE FORM-->
-      <form action="/places/like/{{_id }}" method="POST">
-       <button class="btn btn-primary btn-sm">Like  <span class="badge badge-light">{{like_count}}</span></button>
-      </form>
-      </div>
-      {{/with}}
-      <br>
-
-<!--IF IT'S THE OWNER OF THE PLACE SHOW UPDATE AND DELETE OPTIONS-->
-      {{#if isOwner}}
-      <div>
-      <button class="btn btn-link"><a href="/places/update/{{ place._id }}">Update Details</a></button>
-       <!--new thing-->
-        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Delete Post</button>
-      </div>
-      {{/if}}
-
-     {{#with place}}
+    <!--LIKE FORM-->
+    <form action="/places/like/{{_id }}" method="POST">
+      <button class="btn btn-primary btn-sm">Like  <span class="badge badge-light">{{like_count}}</span></button>
+    </form>
     </div>
-    <div class="col-6">
-      <div id="map-container"></div>
-      <small><strong>Created:</strong> {{commentDate createdDate}}</small>
-      <p><strong>Latitude:</strong> {{location.coordinates.[1]}} | <strong>Longitude:</strong> {{location.coordinates.[0]}}</p><br>
-      <form action="/places/directions/{{ _id }}" method="GET">
-       <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-up"></i>Get directions to this art!</button>
-      </form>
+    {{/with}}
+    <br>
+
+    <!--IF IT'S THE OWNER OF THE PLACE SHOW UPDATE AND DELETE OPTIONS-->
+    {{#if isOwner}}
+    <div>
+    <button class="btn btn-link"><a href="/places/update/{{ place._id }}">Update Details</a></button>
+      <!--new thing-->
+      <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">Delete Post</button>
     </div>
+    {{/if}}
+  </div>
+  {{#with place}}
+
+  <!-- Force next columns to break to new line at md breakpoint and up -->
+  <div class="w-100 d-none d-md-block"></div>
+
+  <!--RIGHT CONTAINER-->
+  <div class="col-6 col-sm-4">
+    <div id="map-container"></div>
+    <small><strong>Created:</strong> {{commentDate createdDate}}</small>
+    <small><strong>Latitude:</strong> {{location.coordinates.[1]}} | <strong>Longitude:</strong> {{location.coordinates.[0]}}</small><br>
+    <form action="/places/directions/{{ _id }}" method="GET">
+      <button class="btn btn-primary btn-sm mt-3"><i class="fa fa-thumbs-up"></i>Get directions to this art!</button>
+    </form>
   </div>
 </div>
 
