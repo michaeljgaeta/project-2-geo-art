@@ -1,33 +1,32 @@
 {{#with place}}
-<div class="page"> 
-<h1>{{name}}'s Art Directions</h1>
+<div style="text-align:left" class="page mb-3"> 
+<h2>{{name}}'s Art Directions</h2>
 </div>
-<div style="text-align:center">
+<div style="text-align:left">
 <div>
   <p><strong> Step 1:</strong> Locate yourself</p>
-  <div  style="text-align:center" >
+  <div style="text-align:left" >
  <button onclick="getLocation()"   class="btn btn-primary btn-sm" >Get my Location</button>
  <p id="checkUser" style="color: green;"></p>
  </div>
 </div>
 <div>
 <p><p><strong> Step 2:</strong> Select your traveling mode:</p>
-<select id="mode">
+<select class="mb-4" id="mode">
+  <option value="SELECT">Select</option>
   <option value="DRIVING">Driving</option>
   <option value="WALKING">Walking</option>
 </select>
 </div>
 </div>
 <small>
-<strong>Note: </strong>The accuracy will depend on the device you use. For best results use your mobile phone.</small>
+<!--<strong>Note: </strong>The accuracy will depend on the device you use. For best results use your mobile phone.</small>-->
  
 
     <div id="map-container"></div>
     <div id="right-panel"></div>
-    <label>Art Coordenates: Lat:</label>
-<label id="latitude">{{location.coordinates.[1]}}</label>
-<label> | Lng:</label>
-<label id="longitude">{{location.coordinates.[0]}}</label>
+    <label hidden="true" id="latitude">{{location.coordinates.[1]}}</label>
+    <label hidden="true" id="longitude">{{location.coordinates.[0]}}</label>
     
     
     
