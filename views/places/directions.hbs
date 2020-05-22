@@ -5,7 +5,7 @@
 <div style="text-align:center">
 <div>
   <p><strong> Step 1:</strong> Locate yourself</p>
-  <div style="text-align:center" >
+<div style="text-align:center" >
  <button onclick="getLocation()"   class="btn btn-primary btn-sm" >Get my Location</button>
  <p id="checkUser" style="color: green;"></p>
  </div>
@@ -36,7 +36,7 @@
 function getLocation() {
   if (navigator.geolocation) {
     let $checkUser = document.getElementById("checkUser");
-    $checkUser.innerText="Your location was found, wait a seconds to precess" 
+    $checkUser.innerText="Your location was found." 
 
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
