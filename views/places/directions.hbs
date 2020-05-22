@@ -36,7 +36,7 @@
 function getLocation() {
   if (navigator.geolocation) {
     let $checkUser = document.getElementById("checkUser");
-    $checkUser.innerText="Your location was found, wait a seconds to precess" 
+    $checkUser.innerText="Your location was found, wait a seconds to process " 
 
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
