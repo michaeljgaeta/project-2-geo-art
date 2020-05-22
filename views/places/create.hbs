@@ -19,14 +19,14 @@
       </div>
       <div>
         <!--latitude-->
-        <input required id="latitude-input" type="hidden" name="latitude" placeholder="Place Latitude" value="38"> <!--form type hidden-->
+        <input required id="latitude-input" type="hidden" name="latitude" placeholder="Place Latitude"> <!--form type hidden-->
       </div>
       <div>
         <!--longitude-->
-        <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude" value="-8"> <!--form type hidden-->
+        <input required id="longitude-input" type="hidden" name="longitude" placeholder="Place Longitude"> <!--form type hidden-->
       </div>
       <div class="mt-4 mb-4">
-        <button onclick="getLocation()" class="btn btn-primary btn" >Locate me</button>
+        <a href="#" class="anchorbutton" onclick="getLocation()"  >Locate me</a>
         <p id="checkUser" style="color: green;"></p>
       </div>
     </div>
@@ -42,7 +42,12 @@
 
 <!--Map Script-->
 <script>
+let $inputLatitude = document.getElementById('latitude-input');
+ let $inputLongitude = document.getElementById('longitude-input');
+ let userlocationcheck = false;
 
+ 
+ 
 //GET USER LOCATION----------------------------------------------
 function getLocation() {
   if (navigator.geolocation) {
@@ -63,31 +68,42 @@ function showPosition(position) {
 
 function initMap(userLat, userLng) {
   let mapcoord={};
- let $inputLatitude = document.getElementById('latitude-input');
- let $inputLongitude = document.getElementById('longitude-input');
- 
- 
 
   if(!userLat){
-
+    //Default Value
 mapcoord = {lat: 38, lng: -8.5};
-  }else{
+ mapOptions = {
+         zoom: 7,
+          center: mapcoord  
+        };
 
-    $inputLatitude.value = (userLat);
- $inputLongitude.value = (userLng);
+  }else{
+//user Coords
+    $inputLatitude.value = userLat;
+ $inputLongitude.value = userLng;
+userlocationcheck = true;
+console.log('user location');
+console.log(userlocationcheck);
   mapcoord = {lat: userLat, lng: userLng};
+   mapOptions = {
+         zoom: 16,
+          center: mapcoord  
+        };
   }
 
-  const map = new window.google.maps.Map(document.getElementById('map-container'), {zoom: 16, center: mapcoord});
+  const map = new window.google.maps.Map(document.getElementById('map-container'), mapOptions);
   let marker;
+
+  if (userlocationcheck){
 marker = new google.maps.Marker({
           position: mapcoord,
-          map: map
+          map: map 
         });
-
+}
 map.addListener('click', event => {
       const latitude = event.latLng.lat();
       const longitude = event.latLng.lng();
+      
       $inputLatitude.value = Number(latitude);
       $inputLongitude.value = Number(longitude);
       

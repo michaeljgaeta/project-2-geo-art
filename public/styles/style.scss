@@ -126,3 +126,22 @@ button,
   text-align: center;
   margin-top: 20px;
 }
+
+.anchorbutton {
+  display: block;
+  width: 115px;
+  height: 25px;
+  background: #007bff;
+  padding: 7px;
+  padding-bottom: 30px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: normal;
+}
+
+.anchorbutton:hover {
+  background-color: #0054cd;
+  color: white;
+  text-decoration: none;
+}

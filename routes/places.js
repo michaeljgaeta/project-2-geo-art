@@ -31,7 +31,7 @@ placesRouter.get("/my-list", routeGuard, (req, res, next) => {
   Place.find({ creator })
 
     .sort({ createdDate: -1 })
-
+    .populate("creator")
     .then((places) => {
       //console.log(places);
       res.render("places/my-list", { places });
