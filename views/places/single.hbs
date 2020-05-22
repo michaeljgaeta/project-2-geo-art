@@ -5,7 +5,7 @@
 <!--ENTIRE CONTENTS-->
 <div class="row mt-4">
   <!--LEFT CONTAINER-->
-  <div class="col-6 col-sm-4">
+  <div class="col-12 col-sm-6">
     <img class="img-list" src="{{pictureUrl}}"/>
     <p>{{ description }}</p>
     
@@ -34,11 +34,8 @@
   </div>
   {{#with place}}
 
-  <!-- Force next columns to break to new line at md breakpoint and up -->
-  <div class="w-100 d-none d-md-block"></div>
-
   <!--RIGHT CONTAINER-->
-  <div class="col-6 col-sm-4">
+  <div class="col-12 col-sm-6">
     <div id="map-container"></div>
     <small><strong>Created:</strong> {{commentDate createdDate}}</small>
     <small><strong>Latitude:</strong> {{location.coordinates.[1]}} | <strong>Longitude:</strong> {{location.coordinates.[0]}}</small><br>

@@ -65,14 +65,11 @@ router.post("/sign-up", uploader.single("picture"), (req, res, next) => {
     })
     .then((user) => {
       req.session.user = user._id;
-      })
-    .then((result) => {
       res.redirect("/");
-      console.log(`http://localhost:3000/authentication/confirm/${user.confirmationCode}`);
-      console.log("confirmation email sent successfuly");
-      console.log(result);
+      //console.log(`http://localhost:3000/authentication/confirm/${user.confirmationCode}`);
+      //console.log("confirmation email sent successfuly");
     })
-      /*transporter
+    /*transporter
         .sendMail({
           from: `ArtGeo Team <${process.env.NODEMAILER_EMAIL}>`,
           to: email,
